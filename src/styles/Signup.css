@@ -1,0 +1,63 @@
+#root {
+  --primaryColor : #453DE0;
+}
+
+.Signup h1 {
+  font-weight: 900;
+}
+
+
+.Signup {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  gap: 1em;
+}
+
+.Signup input {
+  border: 1px lightgrey solid;
+  border-radius: 5px;
+  padding: 4px;
+}
+
+.username {
+  text-align: left;
+}
+
+.password {
+  text-align: left;
+}
+
+
+.Signup button {
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #6246ea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 7px;
+  width: 100px;
+  cursor: pointer;
+}
+
+.Signup button:hover {
+  background-color: #3a34d0;
+}
+
+
+.login-button a {
+  color: #3a34d0;
+  cursor: pointer;
+}
+
+.login-button a:hover {
+  color: #322dbd;
+  text-decoration: underline;
+}
+
+
