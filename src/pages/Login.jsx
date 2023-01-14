@@ -17,7 +17,7 @@ export default function Login() {
         <input type="password" name="password" id="password" />
       </div>
       <div className="login-button">
-        <button>Login</button>
+        <Link to= '/dashboard'><button>Login</button></Link>
       </div>
       <div className="signup-button">
         <Link to ='/signup'>Signup</Link>
