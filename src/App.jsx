@@ -8,6 +8,7 @@ import { Routes, Switch, Route, PrivateRoute} from 'react-router-dom';
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [username, setUsername] = useState('');
 
 
   return (
