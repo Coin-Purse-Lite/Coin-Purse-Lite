@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import CoinRow from '../components/CoinRow'
 import '../styles/Dashboard.css'
 
-
 export default function Dashboard() {
 
   const [watchlist, setWatchlist] = useState([{ticker: 'BTC'}, {ticker: 'ETH'}, {ticker: 'ADA'}])
