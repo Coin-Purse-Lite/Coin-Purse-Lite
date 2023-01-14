@@ -1,6 +1,7 @@
 import React, { useState }  from 'react'
 import { Link } from 'react-router-dom'
 import CoinRow from '../components/CoinRow'
+import Searchbar from '../components/Searchbar'
 import '../styles/Dashboard.css'
 
 export default function Dashboard() {
@@ -21,7 +22,7 @@ export default function Dashboard() {
 
         </div>
         <div className="watchlist-input">
-          <input type="text" placeholder='Ticker...' /> <button className='addticker-button'>Add</button>
+          <Searchbar watchlist = {watchlist} setWatchlist = {(ticker) => setWatchlist(ticker)} />
         </div>
       </div>
       <div className="price-chart">
@@ -33,7 +34,6 @@ export default function Dashboard() {
         })}
       </div>
       <div className="news-module">
-
 
       </div>
     </div>
