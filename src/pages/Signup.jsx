@@ -17,7 +17,7 @@ export default function Signup() {
         <input type="password" name="password" id="password" />
       </div>
       <div className="signup-button">
-        <button>Signup</button>
+      <Link to= '/dashboard'><button>Signup</button></Link>
       </div>
       <div className="login-button">
         <Link to ='/login'>Login</Link>
