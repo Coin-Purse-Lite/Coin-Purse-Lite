@@ -18,7 +18,16 @@ userController.checkDB = (req, res, next) => {
         res.locals.user = user;
         return next();
       } else {
-        res.redirect('/signup') // does this end the response?
+        return next({ log: 'User is not in database.' });
+      }
+    })
+    .catch((err) => {
+      return next({
+        log: `Error in userController.checkDB: ${err}`,
+        message: { err: 'Error occurred in userController.checkDB. Check server logs for more details.' },
+      });
+    });
+};
 
 
 // verifyUser - verify user login - run on login
@@ -79,8 +88,7 @@ userController.getUserInfo = (req, res, next) => {
         return next();
       } else {
         res.redirect('/login') // does this end the response?
-        return next({ log: 'User is already in database.' });
-
+        return next({ log: 'User is not in database.' });
       }
     })
     .catch((err) => {
