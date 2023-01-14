@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { useSignIn } from 'react-auth-kit';
+// import { useSignIn } from 'react-auth-kit';
 import '../styles/Login.css'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -42,6 +42,8 @@ export default function Login(props) {
     setUsername(event.target.value)
   }
 
+
+/*
   const signIn = useSignIn()
   const [formData, setFormData] = React.useState({email: '', password: ''});
 
@@ -68,6 +70,7 @@ export default function Login(props) {
           }
         })
     }
+    */
 
   return (
     <div className="Login">
@@ -85,8 +88,8 @@ export default function Login(props) {
       </div>
       <div className="signup-button">
         <Link to ='/signup'>Signup</Link>
-/*
-    <form onSubmit={onSubmit}>
+      </div>
+    {/* <form onSubmit={onSubmit}>
       <div className="Login">
         <h1>Login</h1>
         <div className="username">
@@ -103,8 +106,8 @@ export default function Login(props) {
         <div className="signup-button">
           <Link to ='/signup'>Signup</Link>
         </div>
-*/
       </div>
-    </form>
+    </form> */}
+    </div>
   )
 };
