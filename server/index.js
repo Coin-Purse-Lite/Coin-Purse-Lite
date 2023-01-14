@@ -6,7 +6,17 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const port = process.env.PORT || 3001; // set port - default 3000 - used for Heroku app hosting
-// const mongoURI = process.env.NODE_ENV = // set mongoURI 
+const mongoURI = process.env.NODE_ENV = 'mongodb+srv://coinpurse:lite@coin-purse-lite.v74xndq.mongodb.net/?retryWrites=true&w=majority';
+
+//connecting to our mongoose database
+  //username is: coinpurse
+  //password is: lite
+mongoose.connect(mongoURI,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log("Connected to DB"))
+.catch(console.error);
 
 
 app.use(express.json()); // to handle json data in request bodies
