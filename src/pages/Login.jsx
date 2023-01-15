@@ -3,17 +3,21 @@ import axios from 'axios';
 // import { useSignIn } from 'react-auth-kit';
 import '../styles/Login.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { getNextKeyDef } from '@testing-library/user-event/dist/keyboard/getNextKeyDef';
 
 export default function Login(props) {
 
-  const {masterUsername} = props;
+  const {masterUsername, setUser} = props;
   const navigate = useNavigate();
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  // const [loggedInUser, setLoggedInUser] = useState({});
+
+
   function handleLogin() {
-    fetch('http://localhost:3000/login', {
+    fetch('http://localhost:3001/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -26,10 +30,19 @@ export default function Login(props) {
     .then(response => response.json())
     .then(data => {
       console.log(data)
-      if (data.success) { // if the login was successful - make sure success is a key in response
+      setUser(data);
+      // if (data.success) { // if the login was successful - make sure success is a key in response
         navigate('/dashboard')
-      }
+      // }
     })
+    .catch(err => {
+      console.log(err)
+      navigate('/login')
+    })
+
+
+    // setUser({username: 'hello', password: 'test'});
+    // navigate('/dashboard')
   }
 
 

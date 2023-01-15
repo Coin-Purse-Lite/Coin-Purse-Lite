@@ -1,7 +1,8 @@
 // author: @utyvert
 
 const bcrypt = require('bcryptjs');
-const User = require('../models/User');
+const User = require('../models/UserModel');
+
 
 const userController = {};
 
@@ -105,6 +106,7 @@ userController.getUserInfo = (req, res, next) => {
 
 userController.createUser = (req, res, next) => {
   const { username, password } = req.body;
+  console.log(username, password);
   console.log('createUser running');
 
   bcrypt.hash(password, 12) // use 12 instead of 10
@@ -128,6 +130,27 @@ userController.createUser = (req, res, next) => {
       next({ log: `Error in userController.createUser: ${err}` });
     });
 };
+
+  //AddTicker -- update user watchlist in database with new ticker from search function
+  userController.AddTicker = (req, res, next) => {
+    //expecting to receive search value(ticker) + user id from body
+    const user = res.locals.user;
+    const id = user.id;
+    const ticker = req.body.ticker;
+    const updatedWatchlist = [...user.watchlist]; 
+    updatedWatchlist.push(ticker);
+
+    //searches for user by id, and updates said user's watchlist with the new watchlist
+    User.findOneAndUpdate({_id: id}, {watchlist: updatedWatchlist}, (err, notUpdateUser) => {
+      if(err){
+        console.error(err);
+        next({
+          error:err
+        })
+      }
+      next();
+    })
+  };
 
     
 
