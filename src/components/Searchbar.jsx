@@ -25,6 +25,7 @@ export default function Searchbar(props) {
         body: JSON.stringify({
           ticker: tickerName,
           
+          
         }), // should send tickername, username
         headers: {'Content-Type': 'application/json'}
         })

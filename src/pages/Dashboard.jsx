@@ -23,6 +23,7 @@ export default function Dashboard(props) {
       method: 'PUT',
       body: JSON.stringify({
         ticker: ticker,
+        watchlist: watchlist,
         username: appUser.username
       }),
       headers: {

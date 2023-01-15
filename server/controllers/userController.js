@@ -158,7 +158,7 @@ userController.removeTicker = (req, res, next) => {
     console.log('entered removeTicker mmiddleware');
     const user = res.locals.user;
     const id = user.id;
-    const updatedWatchlist = [...user.watchlist]; 
+    const updatedWatchlist = [...req.body.watchlist]; 
 
     //searches for user by id, and updates said user's watchlist with the new watchlist
     User.findOneAndUpdate({_id: id}, {watchlist: updatedWatchlist}, { new: true }, (err, updatedUser) => {
