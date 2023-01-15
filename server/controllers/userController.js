@@ -106,6 +106,7 @@ userController.getUserInfo = (req, res, next) => {
 
 userController.createUser = (req, res, next) => {
   const { username, password } = req.body;
+  console.log(username, password);
   console.log('createUser running');
 
   bcrypt.hash(password, 12) // use 12 instead of 10

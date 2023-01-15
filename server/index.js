@@ -20,7 +20,7 @@ mongoose.connect(mongoURI,{
 .then(() => console.log("Connected to DB"))
 .catch(console.error);
 
-
+app.use(cors());
 app.use(express.json()); // to handle json data in request bodies
 app.use(express.urlencoded());
 app.use(cookieParser());
@@ -45,9 +45,15 @@ app.post('/dashboard/search', userController.checkDB, userController.AddTicker, 
 
 app.post('/login', userController.verifyUser, (req, res) => { 
   console.log('login working');
-  res.send('login');
+  res.status(200).json(res.locals.user);
 });
 
+// routing for signup
+
+app.post('/signup', userController.createUser, (req, res) => {
+  console.log('signup working');
+  res.status(200).json(res.locals.user);
+});
 
 
 

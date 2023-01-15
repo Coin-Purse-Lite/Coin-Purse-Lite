@@ -19,6 +19,8 @@ export default function Dashboard(props) {
   }
 
 
+  // console.log('user', appUser.username);
+  
   return (
     <div className="Dashboard">
       <div className="head-module">
@@ -30,7 +32,6 @@ export default function Dashboard(props) {
         </div>
       </div>
       <div className="price-chart">
-
       </div>
       <div className="watchlist">
         {watchlist.map((coin, index) => {
