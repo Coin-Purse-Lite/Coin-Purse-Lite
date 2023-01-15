@@ -20,16 +20,19 @@ export default function Searchbar(props) {
 
     // fetch
     
-      fetch('/where we want to go', {
+      fetch('/dashboard/search', {
         method: 'POST',
-        body: JSON.stringify(tickerName),
+        body: JSON.stringify({
+          ticker: tickerName,
+          
+        }), // should send tickername, username
         headers: {'Content-Type': 'application/json'}
         })
-        .then((response) => response.json())
+        .then((response) => response.json())  // will receive list of all tickers as an array of objects
         .then((response) => {
           console.log(response)
           if(response.ok) {
-            setWatchlist(watchlist.push(response.ticker)) // fix input
+            setWatchlist(watchlist.push(response.ticker)) // alternatively pass in callback
           }
         })
       }
