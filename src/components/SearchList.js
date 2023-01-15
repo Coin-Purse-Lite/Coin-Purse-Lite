@@ -66,7 +66,7 @@ const CoinList = ({ coinData, handleDelete}, props) => {
             <td>{coin.symbol}</td>
             <td>{coin.priceUsd}</td>
             <td>
-              <button onClick={() => handleAdd(coin.id)}>Add</button>
+              {/* <button onClick={() => handleAdd(coin.id)}>Add</button> */}
             </td>
           </tr>
         ))}
