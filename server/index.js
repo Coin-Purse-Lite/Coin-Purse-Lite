@@ -4,6 +4,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const { log } = require('console');
+const userController = require('./controllers/userController');
 
 const port = process.env.PORT || 3001; // set port - default 3000 - used for Heroku app hosting
 const mongoURI = process.env.NODE_ENV = 'mongodb+srv://coinpurse:lite@coin-purse-lite.v74xndq.mongodb.net/?retryWrites=true&w=majority';
@@ -33,6 +35,12 @@ app.get('/' ,(req, res) => {
 app.use(express.static('/'))
 
 
+// routing for login
+
+app.post('/login', userController.verifyUser, (req, res) => { 
+  console.log('login working');
+  res.send('login');
+});
 
 
 
