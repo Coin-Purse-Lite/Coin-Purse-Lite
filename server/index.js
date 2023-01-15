@@ -56,6 +56,15 @@ app.post('/signup', userController.createUser, (req, res) => {
 });
 
 
+// routing for removing ticker from user watchlist
+app.put(
+  '/dashboard', 
+  userController.checkDB,
+  userController.removeTicker, 
+  (req, res) => {
+    res.status(200).json(res.locals.updatedUser)
+  }
+)
 
 
 // 404 error handler
