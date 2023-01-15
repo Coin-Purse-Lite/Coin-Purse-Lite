@@ -4,8 +4,11 @@ import CoinRow from '../components/CoinRow'
 import Searchbar from '../components/Searchbar'
 import '../styles/Dashboard.css'
 
-export default function Dashboard() {
-
+export default function Dashboard(props) {
+  
+  const { user } = props
+  
+  const [appUser, setAppUser] = useState(user); // user is an object with username and password
   const [watchlist, setWatchlist] = useState([{ticker: 'BTC'}, {ticker: 'ETH'}, {ticker: 'ADA'}])
 
   // watchlist = [{ticker: 'BTC'}, {ticker: 'ETH'}, {ticker: 'ADA'}]
@@ -20,7 +23,7 @@ export default function Dashboard() {
     <div className="Dashboard">
       <div className="head-module">
         <div className="head-module--info">
-
+          {appUser.username}
         </div>
         <div className="watchlist-input">
           <Searchbar watchlist = {watchlist} setWatchlist = {(ticker) => setWatchlist(ticker)} />
