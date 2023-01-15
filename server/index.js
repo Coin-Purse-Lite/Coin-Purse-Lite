@@ -48,6 +48,14 @@ app.post('/login', userController.verifyUser, (req, res) => {
   res.send('login');
 });
 
+// routing for signup
+
+app.post('/signup', userController.createUser, (req, res) => {
+  console.log('signup working');
+  res.status(200).json(res.locals.user);
+});
+
+
 // routing for removing ticker from user watchlist
 app.put(
   '/dashboard', 
