@@ -1,40 +1,69 @@
-import React, { useState }  from 'react'
+import React, { useState, useEffect }  from 'react'
 import { Link } from 'react-router-dom'
 import CoinRow from '../components/CoinRow'
 import Searchbar from '../components/Searchbar'
+import SearchList from '../components/SearchList'
 import '../styles/Dashboard.css'
 
 export default function Dashboard(props) {
 
   const { user } = props
+  ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////
+  // string captured from the search bar that is sent to the server
+  const [searchTerm, setSearchTerm] = useState('');
+  // array received from server containing detailed coin information
+  const [coinData, setCoinData] = useState([]);
   
   const [appUser, setAppUser] = useState(user); // user is an object with username and password
-  const [watchlist, setWatchlist] = useState([
-    {ticker: 'BTC', marketCap: '100B', balance: '5,777', price: 0.000038, sevenDay : '+5.1%', thirtyDay: '-27.4%', oneYear: '+1M%', TODAY: '+7.7%'}, 
-    {ticker: 'ETH',  marketCap: '200B', balance: '5,777', price: 0.000038, sevenDay : '+5.1%', thirtyDay: '-27.4%', oneYear: '+1M%', TODAY: '+7.7%'}, 
-    {ticker: 'ADA', marketCap: '300B', balance: '5,777', price: 0.000038, sevenDay : '+5.1%', thirtyDay: '-27.4%', oneYear: '+1M%', TODAY: '+7.7%'}])
-  
+  // array of ticker symbols to be sent to backend
+  const [dashList, setDashList] = useState([{ticker: 'BTC'}, {ticker: 'ETH'}, {ticker: 'ADA'}]);
+  // array of ticker details received from backend
+  const [watchlist, setWatchlist] = useState() 
 
-    function handleDelete (ticker) {
-      setWatchlist(watchlist.filter(coin => coin.ticker !== ticker))
-  
-      // request to update user's watchlist
-      fetch('http://localhost:3001/dashboard', {
-        method: 'PUT',
-        body: JSON.stringify({
-          ticker: ticker,
-          watchlist: watchlist,
-          username: appUser.username
-        }),
-        headers: {
-          'Content-Type': 'application/json'
+  // event handler that deletes a ticker row from the dashboard
+  function handleDelete (ticker) {
+    // removes ticker details from dashList 
+    setDashList(dashList.filter(coinObject => coinObject.symbol !== ticker));
+    // removes ticker from watchlist
+    setWatchlist(watchlist.filter(coin => coin.ticker !== ticker));
+
+    // request to update user's watchlist
+    fetch('http://localhost:3001/dashboard', {
+      method: 'PUT',
+      body: JSON.stringify({
+        ticker: ticker,
+        watchlist: watchlist,
+        username: appUser.username
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(data => data.json())
+      .then(response => console.log('deleted ', ticker)) // consider making popup confirming deletion
+  }
+
+  ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (searchTerm) {
+          const url = `https://api.coincap.io/v2/assets?search=${searchTerm}`;
+          const response = await fetch(url);
+          const data = await response.json();
+          console.log(data);
+          setCoinData(data.data);
         }
-      })
-        .then(data => data.json())
-        .then(response => console.log('deleted ', ticker))
+      } catch (error) {
+        console.log(error);
+      }
     }
-
-
+    fetchData();
+  }, [searchTerm]);
 
   return (
     <div className="Dashboard">
@@ -43,7 +72,9 @@ export default function Dashboard(props) {
           {appUser.username}
         </div>
         <div className="watchlist-input">
-          <Searchbar watchlist = {watchlist} setWatchlist = {(ticker) => setWatchlist(ticker)} />
+          {/* <Searchbar watchlist = {watchlist} setWatchlist = {(ticker) => setWatchlist(ticker)} dashList = {dashList} setDashList = {(ticker) => setWatchlist(ticker)}/> */}
+          <Searchbar onSearch={handleSearch}/>
+          <SearchList coinData={coinData}/>
         </div>
       </div>
       <div className="price-chart">
@@ -62,7 +93,7 @@ export default function Dashboard(props) {
         </table>
       </div>
       <div className="watchlist">
-        {watchlist.map((coin, index) => {
+        {dashList.map((coin, index) => {
           return <CoinRow handleDelete = {(ticker) => handleDelete(ticker)} ticker = {coin.ticker} coin={coin}/>
         })}
       </div>
