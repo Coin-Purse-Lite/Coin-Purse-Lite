@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 
-
 export default function Searchbar(props) {
 
   const { setWatchlist, watchlist }  = props
@@ -19,7 +18,13 @@ export default function Searchbar(props) {
     console.log('invoking handleAdd on search');
     console.log('tickerName is ', tickerName);
 
-    // fetch request 
+    // fetch
+    
+    function handleAdd (target) { // fix input, NOT TARGET!!!
+      console.log('invoking handleAdd on search');
+      console.log('tickerName is ', tickerName);
+  
+      // fetch request 
       fetch('http://localhost:3001/dashboard/search', {
         method: 'POST',
         body: JSON.stringify({
@@ -39,9 +44,7 @@ export default function Searchbar(props) {
           }
         })
       }
-  
-
-      // test to fetch directly to API
+    
 
   return (
     <div className="Searchbar">
@@ -51,6 +54,6 @@ export default function Searchbar(props) {
       <button onClick={handleAdd} className='addticker-button'>Add</button>
     </div>
   )
-
 }
+
 // 
