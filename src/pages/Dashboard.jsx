@@ -17,6 +17,17 @@ export default function Dashboard(props) {
 
   function handleDelete (ticker) {
     setWatchlist(watchlist.filter(coin => coin.ticker !== ticker))
+
+    // request to update user's watchlist
+    fetch('/dashboard', {
+      method: 'PUT',
+      body: JSON.stringify(watchlist),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(data => data.json())
+      .then(response => console.log('deleted ', ticker))
   }
 
 
