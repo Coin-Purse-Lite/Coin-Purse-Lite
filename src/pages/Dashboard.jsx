@@ -15,20 +15,24 @@ export default function Dashboard(props) {
     {ticker: 'ADA', marketCap: '300B', balance: '5,777', price: 0.000038, sevenDay : '+5.1%', thirtyDay: '-27.4%', oneYear: '+1M%', TODAY: '+7.7%'}])
   
 
-  function handleDelete (ticker) {
-    setWatchlist(watchlist.filter(coin => coin.ticker !== ticker))
-
-    // request to update user's watchlist
-    fetch('/dashboard', {
-      method: 'PUT',
-      body: JSON.stringify(watchlist),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(data => data.json())
-      .then(response => console.log('deleted ', ticker))
-  }
+    function handleDelete (ticker) {
+      setWatchlist(watchlist.filter(coin => coin.ticker !== ticker))
+  
+      // request to update user's watchlist
+      fetch('http://localhost:3001/dashboard', {
+        method: 'PUT',
+        body: JSON.stringify({
+          ticker: ticker,
+          watchlist: watchlist,
+          username: appUser.username
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(data => data.json())
+        .then(response => console.log('deleted ', ticker))
+    }
 
 
 
