@@ -20,16 +20,23 @@ export default function Searchbar(props) {
 
     // fetch
     
-      fetch('/dashboard/search', {
+    function handleAdd (target) { // fix input, NOT TARGET!!!
+      console.log('invoking handleAdd on search');
+      console.log('tickerName is ', tickerName);
+  
+      // fetch request 
+      fetch('http://localhost:3001/dashboard/search', {
         method: 'POST',
         body: JSON.stringify({
           ticker: tickerName,
           
-          
         }), // should send tickername, username
         headers: {'Content-Type': 'application/json'}
         })
-        .then((response) => response.json())  // will receive list of all tickers as an array of objects
+        .then((response) => {
+        response.json()
+        console.log(response.json());
+      })  // will receive list of all tickers as an array of objects
         .then((response) => {
           console.log(response)
           if(response.ok) {
