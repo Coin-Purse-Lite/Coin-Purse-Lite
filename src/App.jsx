@@ -9,6 +9,7 @@ import { Routes, Switch, Route, PrivateRoute} from 'react-router-dom';
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState({});
   // const [username, setUsername] = useState('');
 
 
@@ -21,8 +22,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Signup />} />
         <Route path='/signup' element={<Signup />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/login' element={<Login setUser = {(user) => setUser(user)} />} />
+        <Route path='/dashboard' element={<Dashboard user = {user} />} />
       </Routes>
       {/* </AuthProvider> */}
     </div>
