@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
+
 export default function Searchbar(props) {
 
   const { setWatchlist, watchlist }  = props
@@ -18,9 +19,8 @@ export default function Searchbar(props) {
     console.log('invoking handleAdd on search');
     console.log('tickerName is ', tickerName);
 
-    // fetch
-    
-      fetch('/dashboard/search', {
+    // fetch request 
+      fetch('http://localhost:3001/dashboard/search', {
         method: 'POST',
         body: JSON.stringify({
           ticker: tickerName,
@@ -28,7 +28,10 @@ export default function Searchbar(props) {
         }), // should send tickername, username
         headers: {'Content-Type': 'application/json'}
         })
-        .then((response) => response.json())  // will receive list of all tickers as an array of objects
+        .then((response) => {
+        response.json()
+        console.log(response.json());
+      })  // will receive list of all tickers as an array of objects
         .then((response) => {
           console.log(response)
           if(response.ok) {
@@ -36,7 +39,9 @@ export default function Searchbar(props) {
           }
         })
       }
-    
+  
+
+      // test to fetch directly to API
 
   return (
     <div className="Searchbar">
@@ -46,6 +51,6 @@ export default function Searchbar(props) {
       <button onClick={handleAdd} className='addticker-button'>Add</button>
     </div>
   )
-}
 
+}
 // 
