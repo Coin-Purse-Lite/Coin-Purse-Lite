@@ -9,7 +9,6 @@ export default function Signup(props) {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  console.log(username,  password);
   
 
   function handleSignup() {
