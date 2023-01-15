@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const userController = require('./controllers/userController');
-const apiController = require('./controllers/apiController'
+const apiController = require('./controllers/apiController');
 
 const port = process.env.PORT || 3001; // set port - default 3000 - used for Heroku app hosting
 const mongoURI = process.env.NODE_ENV = 'mongodb+srv://coinpurse:lite@coin-purse-lite.v74xndq.mongodb.net/?retryWrites=true&w=majority';
@@ -48,6 +48,15 @@ app.post('/login', userController.verifyUser, (req, res) => {
   res.send('login');
 });
 
+// routing for removing ticker from user watchlist
+app.put(
+  '/dashboard', 
+  userController.checkDB,
+  userController.removeTicker, 
+  (req, res) => {
+    res.status(200).json(res.locals.updatedUser)
+  }
+)
 
 
 

@@ -19,9 +19,12 @@ export default function Dashboard(props) {
     setWatchlist(watchlist.filter(coin => coin.ticker !== ticker))
 
     // request to update user's watchlist
-    fetch('/dashboard', {
+    fetch('http://localhost:3001/dashboard', {
       method: 'PUT',
-      body: JSON.stringify(watchlist),
+      body: JSON.stringify({
+        ticker: ticker,
+        username: appUser.username
+      }),
       headers: {
         'Content-Type': 'application/json'
       }
