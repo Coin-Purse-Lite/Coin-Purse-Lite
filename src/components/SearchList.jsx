@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/Searchlist.css';
 // import CoinCard from './CoinCard';
 // import {Line} from 'react-chartjs-2'
 
@@ -50,6 +51,22 @@ const CoinList = (props) => {
     //     }
     //   })
     // }
+
+    function roundToTwoDecimals(number) {
+      return Math.round(number * 100) / 100
+    }
+    
+    
+    function roundToMillionOrBillion(number) {
+      if (number >= 1000000000) {
+        return `${(number / 1000000000).toFixed(2)}b`;
+      } else if (number >= 1000000) {
+        return `${(number / 1000000).toFixed(2)}m`;
+      } else {
+        return number;
+      }
+    }
+    
     
 
   return (
@@ -64,11 +81,11 @@ const CoinList = (props) => {
         </tr>
       </thead>
       <tbody>
-        {coinData.map(coin => (
+        {coinData.slice(0,10).map(coin => (
           <tr key={coin.id}>
             <td>{coin.name}</td>
             <td>{coin.symbol}</td>
-            <td>{coin.priceUsd}</td>
+            <td>{roundToTwoDecimals(coin.priceUsd)}</td>
             <td>
               <button onClick={() => handleAdd(coin)}>Add</button>
             </td>
