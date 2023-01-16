@@ -76,4 +76,5 @@ const Searchbar = ({ onSearch}) => {
     </form>
   );
 }
+
 export default Searchbar;

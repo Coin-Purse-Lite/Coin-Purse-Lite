@@ -15,6 +15,21 @@ export default function CoinRow(props) {
 
 console.log("this is the coinrow data at the moment", el)
 
+function roundToTwoDecimals(number) {
+  return Math.round(number * 100) / 100
+}
+
+
+function roundToMillionOrBillion(number) {
+  if (number >= 1000000000) {
+    return `${(number / 1000000000).toFixed(2)}b`;
+  } else if (number >= 1000000) {
+    return `${(number / 1000000).toFixed(2)}m`;
+  } else {
+    return number;
+  }
+}
+
   
 
 
@@ -23,24 +38,24 @@ console.log("this is the coinrow data at the moment", el)
       <table>
         <thead>
           <tr>
-            <th>Symbol</th>
+            {/* <th>Symbol</th>
             <th>Name</th>
             <th>Marketcap</th>
             <th>Price</th>
-            <th>Seven Day</th>
-            <th>Thirty Day</th>
-            <th>One Year</th>
-            <th>Today Change</th>
+            <th>Supply</th>
+            <th>Volume (24h)</th> */}
+            {/* <th>One Year</th> */}
+            {/* <th>Today Change</th> */}
             </tr>
         </thead>
         <tbody>
         <tr>
         <td>{el.symbol}</td>
         <td>{el.name}</td>
-        <td>{el.marketCapUsd}</td>
-        <td>${el.priceUsd}</td>
-        <td>{el.supply}</td>
-        <td>{el.volumeUsd24Hr}</td>
+        <td>{roundToTwoDecimals(el.marketCapUsd)}</td>
+        <td>${roundToTwoDecimals(el.priceUsd)}</td>
+        <td>{roundToMillionOrBillion(roundToTwoDecimals(el.supply))}</td>
+        <td>{roundToMillionOrBillion(roundToTwoDecimals(el.volumeUsd24Hr))}</td>
         
         {/*// <td>{el.explorer}</td>
         // <td>{props.coinData.TODAY}</td> */}
