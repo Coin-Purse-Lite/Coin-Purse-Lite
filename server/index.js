@@ -36,7 +36,7 @@ app.use(express.static('/'))
 
 
 //controller to handle post request from server from search bar use
-app.post('/dashboard/search', userController.checkDB, userController.AddTicker, userController.checkDB, apiController.getUserApiData, (req,res) => {
+app.post('/dashboard/search', userController.checkDB, userController.addTicker, userController.checkDB, apiController.getUserApiData, (req,res) => {
   res.send(200);
 })
 
@@ -59,7 +59,7 @@ app.post('/signup', userController.createUser, (req, res) => {
 // routing for removing ticker from user watchlist
 app.put(
   '/dashboard', 
-  userController.checkDB,
+  // userController.checkDB,
   userController.removeTicker, 
   (req, res) => {
     res.status(200).json(res.locals.updatedUser)

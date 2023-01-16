@@ -132,7 +132,7 @@ userController.createUser = (req, res, next) => {
 };
 
   //AddTicker -- update user watchlist in database with new ticker from search function
-  userController.AddTicker = (req, res, next) => {
+  userController.addTicker = (req, res, next) => {
     //expecting to receive search value(ticker) + user id from body
     const user = res.locals.user;
     const id = user.id;

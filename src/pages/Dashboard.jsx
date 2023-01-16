@@ -16,16 +16,17 @@ export default function Dashboard(props) {
   
   const [appUser, setAppUser] = useState(user); // user is an object with username and password
   // array of ticker symbols to be sent to backend
-  const [dashList, setDashList] = useState([{ticker: 'BTC'}, {ticker: 'ETH'}, {ticker: 'ADA'}]);
+  const [dashList, setDashList] = useState([]);
   // array of ticker details received from backend
-  const [watchlist, setWatchlist] = useState() 
+  const [watchlist, setWatchlist] = useState([{ticker: 'BTC'}, {ticker: 'ETH'}, {ticker: 'ADA'}]) 
+
 
   // event handler that deletes a ticker row from the dashboard
   function handleDelete (ticker) {
     // removes ticker details from dashList 
     setDashList(dashList.filter(coinObject => coinObject.symbol !== ticker));
     // removes ticker from watchlist
-    setWatchlist(watchlist.filter(coin => coin.ticker !== ticker));
+    setWatchlist(watchlist.filter(coin => coin.symbol !== ticker));
 
     // request to update user's watchlist
     fetch('http://localhost:3001/dashboard', {
@@ -41,6 +42,15 @@ export default function Dashboard(props) {
     })
       .then(data => data.json())
       .then(response => console.log('deleted ', ticker)) // consider making popup confirming deletion
+  }
+
+  const handleAdd = (coin) => { // fix input, NOT TARGET!!!
+    console.log('invoking handleAdd on search');
+    console.log('tickerName is ', coin);
+    console.log('dashList is ', dashList);
+
+    setDashList([...dashList, coin]);
+    console.log('dashList is this after add', dashList);
   }
 
   ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////
@@ -74,14 +84,15 @@ export default function Dashboard(props) {
         <div className="watchlist-input">
           {/* <Searchbar watchlist = {watchlist} setWatchlist = {(ticker) => setWatchlist(ticker)} dashList = {dashList} setDashList = {(ticker) => setWatchlist(ticker)}/> */}
           <Searchbar onSearch={handleSearch}/>
-          <SearchList coinData={coinData}/>
+          <SearchList coinData={coinData} dashList={dashList} watchlist={watchlist} handleAdd={handleAdd}/>
         </div>
       </div>
       <div className="price-chart">
       </div>
       <div className='header'>
-        <table>
+        {/* <table>
           <tr>
+            <th>Symbol</th>
             <th>Name</th>
             <th>Marketcap</th>
             <th>Price</th>
@@ -90,12 +101,13 @@ export default function Dashboard(props) {
             <th>One Year</th>
             <th>Today Change</th>
           </tr>
-        </table>
+        </table> */}
       </div>
       <div className="watchlist">
-        {dashList.map((coin, index) => {
-          return <CoinRow handleDelete = {(ticker) => handleDelete(ticker)} ticker = {coin.ticker} coin={coin}/>
+        {dashList.map((el, index) => {
+          return <CoinRow handleDelete = {(el) => handleDelete(el)} el={el}/>
         })}
+        {/* <CoinRow handleDelete = {(el) => handleDelete(el)}/> */}
       </div>
       <div className="news-module">
 
