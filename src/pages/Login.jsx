@@ -3,6 +3,7 @@ import axios from 'axios';
 // import { useSignIn } from 'react-auth-kit';
 import '../styles/Login.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { getNextKeyDef } from '@testing-library/user-event/dist/keyboard/getNextKeyDef';
 
 export default function Login(props) {
 
@@ -16,7 +17,7 @@ export default function Login(props) {
 
 
   function handleLogin() {
-    fetch('http://localhost:3000/login', {
+    fetch('http://localhost:3001/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -33,6 +34,10 @@ export default function Login(props) {
       // if (data.success) { // if the login was successful - make sure success is a key in response
         navigate('/dashboard')
       // }
+    })
+    .catch(err => {
+      console.log(err)
+      navigate('/login')
     })
 
 

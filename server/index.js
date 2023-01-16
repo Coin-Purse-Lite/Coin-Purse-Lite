@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const userController = require('./controllers/userController');
-const apiController = require('./controllers/apiController')
+const apiController = require('./controllers/apiController');
 
 const port = process.env.PORT || 3001; // set port - default 3000 - used for Heroku app hosting
 const mongoURI = process.env.NODE_ENV = 'mongodb+srv://coinpurse:lite@coin-purse-lite.v74xndq.mongodb.net/?retryWrites=true&w=majority';
@@ -20,7 +20,7 @@ mongoose.connect(mongoURI,{
 .then(() => console.log("Connected to DB"))
 .catch(console.error);
 
-
+app.use(cors());
 app.use(express.json()); // to handle json data in request bodies
 app.use(express.urlencoded());
 app.use(cookieParser());
@@ -45,12 +45,26 @@ app.post('/dashboard/search', userController.checkDB, userController.AddTicker, 
 
 app.post('/login', userController.verifyUser, (req, res) => { 
   console.log('login working');
-  res.send('login');
+  res.status(200).json(res.locals.user);
+});
+
+// routing for signup
+
+app.post('/signup', userController.createUser, (req, res) => {
+  console.log('signup working');
+  res.status(200).json(res.locals.user);
 });
 
 
-
-
+// routing for removing ticker from user watchlist
+app.put(
+  '/dashboard', 
+  userController.checkDB,
+  userController.removeTicker, 
+  (req, res) => {
+    res.status(200).json(res.locals.updatedUser)
+  }
+)
 
 // 404 error handler
 

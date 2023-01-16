@@ -11,10 +11,18 @@ apiController.getUserApiData = (req, res, next) => {
 
     axios('http://api.coincap.io/v2/assets')
     .then(res => {
-        console.log(res.data);
-        userWatchlist.forEach((ticker) => {
-          const coinData = res.data.find(coinData => coinData.symbol === ticker.toUpperCase());
+        // console.log(res.data);
+        // userWatchlist.forEach((ticker) => {
+        //   const coinData = res.data.find(coinData => coinData.symbol === ticker.toUpperCase());
+        // })
+
+        res.data.filter((el) => {
+          return userWatchlist.some((ticker) => {
+            return ticker === el.id
+          })
+          
         })
+      
 
     })
 
