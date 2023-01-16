@@ -132,7 +132,7 @@ userController.createUser = (req, res, next) => {
 };
 
   //AddTicker -- update user watchlist in database with new ticker from search function
-  userController.AddTicker = (req, res, next) => {
+  userController.addTicker = (req, res, next) => {
     //expecting to receive search value(ticker) + user id from body
     const user = res.locals.user;
     const id = user.id;
@@ -141,20 +141,41 @@ userController.createUser = (req, res, next) => {
     updatedWatchlist.push(ticker);
 
     //searches for user by id, and updates said user's watchlist with the new watchlist
-    User.findOneAndUpdate({_id: id}, {watchlist: updatedWatchlist}, (err, notUpdateUser) => {
+    User.findOneAndUpdate({_id: id}, {watchlist: updatedWatchlist},{ new: true }, (err, updatedUser) => {
+      if(err){
+        console.error(err);
+        next({
+          error:err
+        })
+      }else{
+        res.locals.updatedUser = updatedUser;
+        next();
+      }
+
+    })
+  };
+
+    
+  // removeTicker -- removes ticker from user watchlist
+  userController.removeTicker = (req, res, next) => {
+    console.log('entered removeTicker mmiddleware');
+    const user = res.locals.user;
+    const id = user.id;
+    const updatedWatchlist = [...req.body.watchlist]; 
+
+    //searches for user by id, and updates said user's watchlist with the new watchlist
+    User.findOneAndUpdate({_id: id}, {watchlist: updatedWatchlist}, { new: true }, (err, updatedUser) => {
+      console.log('updatedUser is ', updatedUser);
       if(err){
         console.error(err);
         next({
           error:err
         })
       }
+      res.locals.updatedUser = updatedUser
       next();
     })
-  };
-
-    
-
-
+};
 
 
 // updateUser - update user info ? - run after verifySession/cookie - stretch

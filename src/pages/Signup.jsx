@@ -24,12 +24,18 @@ export default function Signup(props) {
       })
     }).then(response => response.json())
     .then(data => {
+      if (data.error){
+        navigate('/signup');
+    } else {
       console.log('submit', data)
       setUser(data);
       // if (data.success) { // if the login was successful - make sure success is a key in response
+      setTimeout(() => {
         navigate('/dashboard')
+      }, 200);   
+        
       // }
-    })
+    }})
     .catch(err => {
       console.log(err)
       navigate('/signup')
@@ -60,7 +66,7 @@ export default function Signup(props) {
         <input onChange={handlePasswordChange} type="password" name="password" id="password" />
       </div>
       <div className="signup-button">
-      <Link to= '/dashboard'><button onClick={handleSignup}>Signup</button></Link>
+      <button onClick={handleSignup}>Signup</button>
       </div>
       <div className="login-button">
         <Link to ='/login'>Login</Link>
