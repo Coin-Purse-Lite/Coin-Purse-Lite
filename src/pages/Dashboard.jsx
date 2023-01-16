@@ -104,6 +104,7 @@ export default function Dashboard(props) {
   return (
     <div className="Dashboard">
       <div className="head-module">
+        {/* <h1>Head Module</h1> */}
         <div className="head-module--info">
           {appUser.username}
         </div>
@@ -114,29 +115,38 @@ export default function Dashboard(props) {
         </div>
       </div>
       <div className="price-chart">
+        <h1>Price Chart</h1>
       </div>
-      <div className='header'>
-        {/* <table>
-          <tr>
-            <th>Symbol</th>
-            <th>Name</th>
-            <th>Marketcap</th>
-            <th>Price</th>
-            <th>Seven Day</th>
-            <th>Thirty Day</th>
-            <th>One Year</th>
-            <th>Today Change</th>
-          </tr>
-        </table> */}
-      </div>
+      
       <div className="watchlist">
-        {dashList.map((el, index) => {
-          return <CoinRow handleDelete = {(el) => handleDelete(el)} el={el}/>
-        })}
-        {/* <CoinRow handleDelete = {(el) => handleDelete(el)}/> */}
+        {/* <h1>Watchlist</h1> */}
+        <div className="watchlist--list">
+          <div className='watchlist--header'>
+            <table className='table'>
+              <tr>
+                <th className="table-cell">Symbol</th>
+                <th className="table-cell">Name</th>
+                <th className="table-cell">Marketcap</th>
+                <th className="table-cell">Price</th>
+                <th className="table-cell">Supply</th>
+                <th className="table-cell">Volume (24h)</th>
+                {/* <th>One Year</th> */}
+                {/* <th>Today Change</th> */}
+              </tr>
+            </table>
+            <tbody>
+              <div className="watchlist--list">
+                {dashList.map((el, index) => {
+                  return <CoinRow handleDelete = {(el) => handleDelete(el)} el={el}/>
+                })}
+                </div>
+                </tbody>
+                {/* <CoinRow handleDelete = {(el) => handleDelete(el)}/> */}
+              </div>
+            </div>
       </div>
       <div className="news-module">
-
+        <h1>News module</h1>
       </div>
     </div>
   )
