@@ -141,14 +141,17 @@ userController.createUser = (req, res, next) => {
     updatedWatchlist.push(ticker);
 
     //searches for user by id, and updates said user's watchlist with the new watchlist
-    User.findOneAndUpdate({_id: id}, {watchlist: updatedWatchlist}, (err, notUpdateUser) => {
+    User.findOneAndUpdate({_id: id}, {watchlist: updatedWatchlist},{ new: true }, (err, updatedUser) => {
       if(err){
         console.error(err);
         next({
           error:err
         })
+      }else{
+        res.locals.updatedUser = updatedUser;
+        next();
       }
-      next();
+
     })
   };
 

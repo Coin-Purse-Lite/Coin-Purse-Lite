@@ -35,9 +35,9 @@ app.get('/' ,(req, res) => {
 app.use(express.static('/'))
 
 
-//controller to handle post request from server from search bar use
-app.post('/dashboard/search', userController.checkDB, userController.addTicker, userController.checkDB, apiController.getUserApiData, (req,res) => {
-  res.send(200);
+//controller to handle post request from "add" coin feature in front end. This adds ticker to user watchlist, and returns whole user
+app.post('/dashboard/search', userController.checkDB, userController.addTicker, (req,res) => {
+  res.json(res.locals.updatedUser);
 })
 
 
