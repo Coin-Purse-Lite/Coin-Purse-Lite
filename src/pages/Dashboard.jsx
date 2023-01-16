@@ -46,11 +46,36 @@ export default function Dashboard(props) {
 
   const handleAdd = (coin) => { // fix input, NOT TARGET!!!
     console.log('invoking handleAdd on search');
-    console.log('tickerName is ', coin);
+    console.log('tickerName is ', coin.symbol);
     console.log('dashList is ', dashList);
+    
+    if (!watchlist.find( el => el.ticker === coin.symbol)) {
+      setDashList([...dashList, coin]);
+      console.log('dashList is this after add', dashList); 
 
-    setDashList([...dashList, coin]);
-    console.log('dashList is this after add', dashList);
+      const fetchData = async () => {
+        const posting = {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: {
+            ticker: coin.symbol,
+            username: appUser
+          }
+        }
+        try{
+          const response = await fetch('http://localhost:3001/dashboard/search', posting);
+          const data = await response.json(); // is this the updated watchlist or just the ticker that is sent back
+          setWatchlist(data.watchlist);
+        } catch(err) {
+          console.log(err);
+        }
+      }
+      fetchData();
+      console.log('added ticker to ', watchlist);
+    }
   }
 
   ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////
@@ -61,6 +86,7 @@ export default function Dashboard(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // need to conduct a check for duplicates
         if (searchTerm) {
           const url = `https://api.coincap.io/v2/assets?search=${searchTerm}`;
           const response = await fetch(url);
