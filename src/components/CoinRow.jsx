@@ -50,16 +50,16 @@ function roundToMillionOrBillion(number) {
         </thead>
         <tbody>
         <tr>
-        <td>{el.symbol}</td>
-        <td>{el.name}</td>
-        <td>{roundToTwoDecimals(el.marketCapUsd)}</td>
-        <td>${roundToTwoDecimals(el.priceUsd)}</td>
-        <td>{roundToMillionOrBillion(roundToTwoDecimals(el.supply))}</td>
-        <td>{roundToMillionOrBillion(roundToTwoDecimals(el.volumeUsd24Hr))}</td>
+        <td className="table-cell">{el.symbol}</td>
+        <td className="table-cell">{el.name}</td>
+        <td className="table-cell">{roundToMillionOrBillion(roundToTwoDecimals(el.marketCapUsd))}</td>
+        <td className="table-cell">${roundToTwoDecimals(el.priceUsd)}</td>
+        <td className="table-cell">{roundToMillionOrBillion(roundToTwoDecimals(el.supply))}</td>
+        <td className="table-cell">{roundToMillionOrBillion(roundToTwoDecimals(el.volumeUsd24Hr))}</td>
         
         {/*// <td>{el.explorer}</td>
         // <td>{props.coinData.TODAY}</td> */}
-        <td>
+        <td colSpan='6' >
         <button className='delete_btn' onClick={() => props.handleDelete(el.symbol)}>-</button>
         </td>
         </tr>

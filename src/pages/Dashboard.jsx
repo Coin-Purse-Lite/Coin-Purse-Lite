@@ -98,12 +98,12 @@ export default function Dashboard(props) {
           <div className='watchlist--header'>
             <table className='table'>
               <tr>
-                <th>Symbol</th>
-                <th>Name</th>
-                <th>Marketcap</th>
-                <th>Price</th>
-                <th>Supply</th>
-                <th>Volume (24h)</th>
+                <th className="table-cell">Symbol</th>
+                <th className="table-cell">Name</th>
+                <th className="table-cell">Marketcap</th>
+                <th className="table-cell">Price</th>
+                <th className="table-cell">Supply</th>
+                <th className="table-cell">Volume (24h)</th>
                 {/* <th>One Year</th> */}
                 {/* <th>Today Change</th> */}
               </tr>
