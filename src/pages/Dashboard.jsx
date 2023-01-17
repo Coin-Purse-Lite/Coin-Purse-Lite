@@ -20,7 +20,7 @@ export default function Dashboard(props) {
   // array of ticker symbols to be sent to backend
   const [dashList, setDashList] = useState([]);
   // array of ticker details received from backend
-  const [watchlist, setWatchlist] = useState([{ticker: 'BTC'}, {ticker: 'ETH'}, {ticker: 'ADA'}]) 
+  const [watchlist, setWatchlist] = useState(['BTC', 'ETH', 'ADA']) 
 
 
   // event handler that deletes a ticker row from the dashboard
@@ -46,13 +46,47 @@ export default function Dashboard(props) {
       .then(response => console.log('deleted ', ticker)) // consider making popup confirming deletion
   }
 
+  // const handleAdd = (coin) => { // fix input, NOT TARGET!!!
+  //   console.log('invoking handleAdd on search');
+  //   console.log('tickerName is ', coin);
+  //   console.log('dashList is ', dashList);
+
+  //   setDashList([...dashList, coin]);
+  //   console.log('dashList is this after add', dashList);
+  // }
+
   const handleAdd = (coin) => { // fix input, NOT TARGET!!!
     console.log('invoking handleAdd on search');
-    console.log('tickerName is ', coin);
-    console.log('dashList is ', dashList);
+    console.log('tickerName is ', coin.symbol);
+    // console.log('dashList is ', dashList);
+    const posting = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ticker: coin.symbol,
+        username: 'tanner'
+      })
+    }
+    
+    fetch('http://localhost:3001/dashboard/search', posting)
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(response => {
+        if(watchlist.includes(coin.symbol)) {
+          console.log('ticker already exists');
+          return alert('ticker already exists')
+        }
+        else {
+          setWatchlist(response.watchlist);
+          setDashList([...dashList, coin])
+          console.log(`added ${coin.symbol} to watchlist`);
+          console.log('added to dashlist: ', coin);
+        }
+      })
+      .catch(err => console.log(err))
 
-    setDashList([...dashList, coin]);
-    console.log('dashList is this after add', dashList);
   }
 
   ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////
