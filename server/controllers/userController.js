@@ -148,7 +148,7 @@ userController.createUser = (req, res, next) => {
           error:err
         })
       }else{
-        res.locals.updatedUser = updatedUser;
+        res.locals.user = updatedUser;
         next();
       }
 
@@ -172,7 +172,7 @@ userController.createUser = (req, res, next) => {
           error:err
         })
       }
-      res.locals.updatedUser = updatedUser
+      res.locals.updatedUser = updatedUser;
       next();
     })
 };
