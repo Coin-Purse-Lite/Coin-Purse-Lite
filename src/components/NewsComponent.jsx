@@ -4,14 +4,15 @@ import '../styles/NewsComponent.css';
 const NewsList = () => {
 const [newsData, setNewsData] = useState([]);
 
-useEffect(() => {
-  fetch('https://newsdata.io/api/1/news?apikey=pub_15756f4c306903b3dad2ec9ca6134e06324ae&q=crypto')
-      .then(res => res.json())
-      .then(data => {
-          setNewsData(data.results);
-      })
-      .catch(err => console.log(err));
-}, []);
+// UNCOMMENT THIS TO MAKE NEWS WORK 
+// useEffect(() => {
+//   fetch('https://newsdata.io/api/1/news?apikey=pub_15756f4c306903b3dad2ec9ca6134e06324ae&language=en')
+//       .then(res => res.json())
+//       .then(data => {
+//           setNewsData(data.results);
+//       })
+//       .catch(err => console.log(err));
+// }, []);
 
 return (
   <div className="news-list-container bg-white">
