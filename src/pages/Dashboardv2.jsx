@@ -1,10 +1,8 @@
 import React, { useState, useEffect }  from 'react'
 import { Link } from 'react-router-dom'
-import CoinDisplay from '../components/CoinDisplay'
 import CoinRow from '../components/CoinRow'
 import Searchbar from '../components/Searchbar'
 import SearchList from '../components/SearchList'
-import HeadModule from '../components/HeadModule'
 import '../styles/Dashboard.css'
 
 export default function Dashboard(props) {
@@ -80,36 +78,46 @@ export default function Dashboard(props) {
   return (
     <div className="Dashboard">
       <div className="head-module">
-      <HeadModule
-      handleSearch = {handleSearch}
-      coinData = {coinData}
-      dashList = {dashList}
-      watchList = {watchlist}
-      handleAdd = {handleAdd}  />
-      </div>
-      {/* <div className="head-module">
         {/* <h1>Head Module</h1> */}
-        {/* <div className="head-module--info">
+        <div className="head-module--info">
           {appUser.username}
-        </div> 
+        </div>
         <div className="watchlist-input">
+          {/* <Searchbar watchlist = {watchlist} setWatchlist = {(ticker) => setWatchlist(ticker)} dashList = {dashList} setDashList = {(ticker) => setWatchlist(ticker)}/> */}
           <Searchbar onSearch={handleSearch}/>
           <SearchList coinData={coinData} dashList={dashList} watchlist={watchlist} handleAdd={handleAdd}/>
         </div>
-      </div> */}
+      </div>
       <div className="price-chart">
         <h1>Price Chart</h1>
       </div>
       
       <div className="watchlist">
         {/* <h1>Watchlist</h1> */}
-
-        <CoinDisplay 
-        dashList = {dashList} 
-        handleDelete = {handleDelete}
-        searchTerm = {searchTerm}
-        setCoinData = {setCoinData} />
-
+        <div className="watchlist--list">
+          <div className='watchlist--header'>
+            <table className='table'>
+              <tr>
+                <th className="table-cell">Symbol</th>
+                <th className="table-cell">Name</th>
+                <th className="table-cell">Marketcap</th>
+                <th className="table-cell">Price</th>
+                <th className="table-cell">Supply</th>
+                <th className="table-cell">Volume (24h)</th>
+                {/* <th>One Year</th> */}
+                {/* <th>Today Change</th> */}
+              </tr>
+            </table>
+            <tbody>
+              <div className="watchlist--list">
+                {dashList.map((el, index) => {
+                  return <CoinRow handleDelete = {(el) => handleDelete(el)} el={el}/>
+                })}
+                </div>
+                </tbody>
+                {/* <CoinRow handleDelete = {(el) => handleDelete(el)}/> */}
+              </div>
+            </div>
       </div>
       <div className="news-module">
         <h1>News module</h1>

@@ -24,6 +24,21 @@ export default function CoinDisplay(props) {
   }, [searchTerm]);
 
 
+  function roundToTwoDecimals(number) {
+    return Math.round(number * 100) / 100
+  }
+  
+  
+  function roundToMillionOrBillion(number) {
+    if (number >= 1000000000) {
+      return `${(number / 1000000000).toFixed(2)}b`;
+    } else if (number >= 1000000) {
+      return `${(number / 1000000).toFixed(2)}m`;
+    } else {
+      return number;
+    }
+  }
+
 
 
   return (
@@ -41,12 +56,21 @@ export default function CoinDisplay(props) {
         </tr>
       </table>
       <tbody>
-        <div className="watchlist--list">
-          {dashList.map((el, index) => {
-            return <CoinRow handleDelete = {(el) => handleDelete(el)} el={el}/>
-          })}
-          </div>
-          </tbody>
+        {dashList.map((el, index) => (
+            // return <CoinRow handleDelete = {(el) => handleDelete(el)} el={el}/>
+          <tr key = {index}>
+            <td>{el.symbol}</td>
+            <td>{el.name}</td>
+            <td>{roundToMillionOrBillion(roundToTwoDecimals(el.marketCapUsd))}</td>
+            <td>${roundToTwoDecimals(el.priceUsd)}</td>
+            <td>{roundToMillionOrBillion(roundToTwoDecimals(el.supply))}</td>
+            <td>{roundToMillionOrBillion(roundToTwoDecimals(el.volumeUsd24Hr))}</td>
+            <td colSpan='6' >
+            <button className='delete_btn' onClick={() => props.handleDelete(el.symbol)}>-</button>
+            </td>
+          </tr>
+          ))}
+      </tbody>
           {/* <CoinRow handleDelete = {(el) => handleDelete(el)}/> */}
     </div>
   )
