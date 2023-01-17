@@ -41,7 +41,7 @@ export default function PriceChart() {
   }, [coinData]);
 
   return (
-    <div className="PriceChart">
+    <div className="PriceChart bg-white">
       <h1>{coinData.name}</h1>
       {chartData && <Chart chartData={chartData} />}
     </div>

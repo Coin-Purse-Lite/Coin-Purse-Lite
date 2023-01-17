@@ -21,6 +21,7 @@
 
 .Signup input {
   border: 1px lightgrey solid;
+  background-color: white;
   border-radius: 5px;
   padding: 4px;
 }

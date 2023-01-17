@@ -112,25 +112,6 @@ export default function Login(props) {
       <div className="signup-button">
         <Link to="/signup">Signup</Link>
       </div>
-      {/* <form onSubmit={onSubmit}>
-      <div className="Login">
-        <h1>Login</h1>
-        <div className="username">
-          <label htmlFor="username">Username</label><br />
-          <input type="text" name="username" id="username" onChange={(e)=>setFormData({...formData, email: e.target.value})}/> 
-        </div>
-        <div className="password">
-          <label htmlFor="password">Password</label><br />
-          <input type="password" name="password" id="password" onChange={(e)=>setFormData({...formData, password: e.target.value})}/>
-        </div>
-        <div className="login-button">
-          <button>Login</button>
-        </div>
-        <div className="signup-button">
-          <Link to ='/signup'>Signup</Link>
-        </div>
-      </div>
-    </form> */}
     </div>
   );
 }
