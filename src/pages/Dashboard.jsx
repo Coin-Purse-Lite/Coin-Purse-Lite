@@ -18,7 +18,7 @@ export default function Dashboard(props) {
   // array of ticker symbols to be sent to backend
   const [dashList, setDashList] = useState([]);
   // array of ticker details received from backend
-  const [watchlist, setWatchlist] = useState([...user.watchlist]) 
+  const [watchlist, setWatchlist] = useState([]) 
 
 
   // event handler that deletes a ticker row from the dashboard
