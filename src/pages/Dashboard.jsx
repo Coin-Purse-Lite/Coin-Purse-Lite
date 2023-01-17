@@ -18,7 +18,7 @@ export default function Dashboard(props) {
   // array of ticker symbols to be sent to backend
   const [dashList, setDashList] = useState([]);
   // array of ticker details received from backend
-  const [watchlist, setWatchlist] = useState([{ticker: 'BTC'}, {ticker: 'ETH'}, {ticker: 'ADA'}]) 
+  const [watchlist, setWatchlist] = useState([...user.watchlist]) 
 
 
   // event handler that deletes a ticker row from the dashboard
@@ -49,7 +49,7 @@ export default function Dashboard(props) {
     console.log('tickerName is ', coin.symbol);
     console.log('dashList is ', dashList);
     
-    if (!watchlist.find( el => el.ticker === coin.symbol)) {
+    if (watchlist.find( el => el.ticker === coin.symbol) === undefined) {
       setDashList([...dashList, coin]);
       console.log('dashList is this after add', dashList); 
 
