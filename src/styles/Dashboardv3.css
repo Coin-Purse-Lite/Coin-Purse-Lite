@@ -16,6 +16,7 @@
   background-color: #fff;
   margin: 0.5em;
   max-height: 365px;
+  overflow-y: hidden;
 }
 
 .price-chart {
@@ -48,14 +49,6 @@
 
 
 /* table */
-
-
-tbody{
-  max-height: 300px;
-  overflow-y: scroll;
-}
-
-
 
 .watchlist {
   width: 100%; /* set the width of the watchlist div to 100% */
