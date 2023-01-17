@@ -255,6 +255,7 @@ th, td {
 
 @media only screen and (max-width: 1300px) {
   .Dashboard {
+    margin-right: 18px;
     flex-direction: column;
     padding: 10px;
     height: auto;
