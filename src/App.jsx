@@ -12,6 +12,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({});
   // const [username, setUsername] = useState('');
+  const [dashList, setDashList] = useState([]);
 
 
   return (
@@ -25,7 +26,6 @@ function App() {
         <Route path='/signup' element={<Signup setUser = {(user) => setUser(user)} />} />
         <Route path='/login' element={<Login setUser = {(user) => setUser(user)} />} />
         <Route path='/dashboard/*' element={<Dashboard user = {user} />} />
-
       </Routes>
       {/* </AuthProvider> */}
     </div>

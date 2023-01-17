@@ -63,7 +63,7 @@ export default function CoinRow(props) {
             <td colSpan="6">
               <button
                 className="delete_btn"
-                onClick={() => props.handleDelete(el.symbol)}
+                onClick={() => props.handleDelete(el)}
               >
                 -
               </button>

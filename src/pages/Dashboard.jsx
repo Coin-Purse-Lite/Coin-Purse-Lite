@@ -10,7 +10,7 @@ import "../styles/Dashboard.css";
 import NewsComponent from "../components/NewsComponent";
 
 export default function Dashboard(props) {
-  const { user } = props;
+  const { user, dashList, setDashList } = props
 
   const [searchTerm, setSearchTerm] = useState(""); // string captured from the search bar that is sent to the server
   const [coinData, setCoinData] = useState([]); // array received from server containing detailed coin information
@@ -22,42 +22,82 @@ export default function Dashboard(props) {
     { ticker: "ADA" },
   ]); // array of ticker details received from backend
 
+
   ////-------DELETE FUNCTIONALITY---------//////
 
-  function handleDelete(ticker) {
-    // event handler that deletes a ticker row from the dashboard
 
-    setDashList(dashList.filter((coinObject) => coinObject.symbol !== ticker)); // removes ticker details from dashList
-
-    setWatchlist(watchlist.filter((coin) => coin.symbol !== ticker)); // removes ticker from watchlist
-
-    // request to update user's watchlist
-    fetch("http://localhost:3001/dashboard", {
-      method: "PUT",
+  // event handler that deletes a ticker row from the dashboard
+  function handleDelete (coin) {
+    const deletion = {
+      method: 'PUT',
       body: JSON.stringify({
-        ticker: ticker,
-        watchlist: watchlist,
-        username: appUser.username,
+        ticker: coin.symbol,
+        username: user
       }),
       headers: {
-        "Content-Type": "application/json",
-      },
+        'Content-Type': 'application/json'
+      }
+    }
+
+    // request to update user's watchlist
+    fetch('http://localhost:3001/dashboard/delete', deletion)
+    .then(response => response.json())
+    // .then(response => console.log(response))
+    .then(response => {
+      setWatchlist(response.watchlist);
+      setDashList(dashList.filter(coinObject => coinObject.symbol !== coin.symbol))
+      console.log(`removed ${coin.symbol} to watchlist`);
+      console.log('removed from dashlist: ', coin)
     })
-      .then((data) => data.json())
-      .then((response) => console.log("deleted ", ticker)); // consider making popup confirming deletion
+    .catch(err => console.log(err))
+
   }
 
-  ////-------ADD FUNCTIONALITY---------//////
+  // const handleAdd = (coin) => { // fix input, NOT TARGET!!!
+  //   console.log('invoking handleAdd on search');
+  //   console.log('tickerName is ', coin);
+  //   console.log('dashList is ', dashList);
 
-  const handleAdd = (coin) => {
-    // fix input, NOT TARGET!!!
-    console.log("invoking handleAdd on search");
-    console.log("tickerName is ", coin);
-    console.log("dashList is ", dashList);
+  //   setDashList([...dashList, coin]);
+  //   console.log('dashList is this after add', dashList);
+  // }
 
-    setDashList([...dashList, coin]);
-    console.log("dashList is this after add", dashList);
-  };
+  const handleAdd = (coin) => { // fix input, NOT TARGET!!!
+    console.log('invoking handleAdd on search');
+    console.log('tickerName is ', coin.symbol);
+    // console.log('dashList is ', dashList);
+    const posting = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ticker: coin.symbol,
+        username: user.username
+      })
+    }
+    
+    fetch('http://localhost:3001/dashboard/search', posting)
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(response => {
+        // console.log('watchlist: ', watchlist);
+        // console.log('response: ', response.watchlist);
+        if(watchlist.includes(coin.symbol)) {
+          console.log('ticker already exists');
+          return alert('ticker already exists')
+        }
+        else {
+          setWatchlist(response.watchlist);
+          setDashList([...dashList, coin])
+          console.log(`added ${coin.symbol} to watchlist`);
+          console.log('added to dashlist: ', coin);
+        }
+      })
+      .catch(err => console.log(err))
+
+  }
+
 
   ////-------SEARCH FUNCTIONALITY---------//////
   const handleSearch = (term) => {
