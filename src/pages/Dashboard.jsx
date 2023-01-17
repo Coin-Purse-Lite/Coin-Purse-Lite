@@ -112,24 +112,6 @@ export default function Dashboard(props) {
     fetchData();
   }, [searchTerm]);
 
-  ////-------RENDER WATCHLIST FUNCTIONALITY---------//////
-
-  // useEffect(() => {
-  //   fetch('http://localhost:3001/dashboard', {
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       username: appUser.username
-  //     }),
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
-  //     .then(data => data.json())
-  //     .then(response => {
-  //       console.log('response is ', response);
-  //       setWatchlist(response);
-  //     })
-  // }, [])
 
   return (
     <div className="Dashboard">
@@ -153,12 +135,11 @@ export default function Dashboard(props) {
           handleAdd={handleAdd}
         />
       </div>
-      <div className="price-chart">
-        {/* <PriceChart /> */}
-        <Routes>
-          <Route path=":coinID" element={<PriceChart />} />
-        </Routes>
+      <div className="news-module">
+        <h1 style={{textDecoration: 'underline'}} className="bg-white">News</h1>
+        <NewsComponent />
       </div>
+      
       <div className="watchlist">
         <CoinDisplay
           dashList={dashList}
@@ -167,10 +148,14 @@ export default function Dashboard(props) {
           setCoinData={setCoinData}
         />
       </div>
-      <div className="news-module">
-        <h1 className="bg-white">News</h1>
-        <NewsComponent />
+      <div className="price-chart">
+        {/* <PriceChart /> */}
+        <Routes>
+          <Route path = '/' element={<h1 className="generate-chart-banner">Click on a coin to generate its chart</h1>} />
+          <Route path=":coinID" element={<PriceChart />} />
+        </Routes>
       </div>
+      
     </div>
   );
 }
