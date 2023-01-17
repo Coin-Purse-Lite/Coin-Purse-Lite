@@ -12,9 +12,12 @@ const userController = {};
 userController.checkDB = (req, res, next) => {
   const { username } = req.body;
   console.log('checkDB running');
+  console.log('username in checkDB is ', username);
+  console.log('req.body is ', req.body);
 
   User.findOne({username: username})
     .then((user) => {
+      console.log('user is ', user);
       if (user) {
         res.locals.user = user;
         return next();
