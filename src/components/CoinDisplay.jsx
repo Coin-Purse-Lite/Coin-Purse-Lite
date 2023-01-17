@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react'
-import CoinRow from './CoinRow'
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import CoinRow from "./CoinRow";
 
 export default function CoinDisplay(props) {
-
-  const {dashList, handleDelete, searchTerm, setSearchTerm, setCoinData} = props;
-
+  const { dashList, handleDelete, searchTerm, setSearchTerm, setCoinData } =
+    props;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,16 +19,27 @@ export default function CoinDisplay(props) {
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     fetchData();
   }, [searchTerm]);
 
+  function roundToTwoDecimals(number) {
+    return Math.round(number * 100) / 100;
+  }
 
-
+  function roundToMillionOrBillion(number) {
+    if (number >= 1000000000) {
+      return `${(number / 1000000000).toFixed(2)}b`;
+    } else if (number >= 1000000) {
+      return `${(number / 1000000).toFixed(2)}m`;
+    } else {
+      return number;
+    }
+  }
 
   return (
     <div className="CoinDisplay">
-      <table className='table'>
+      <table className="table">
         <tr>
           <th>Symbol</th>
           <th>Name</th>
@@ -41,13 +52,43 @@ export default function CoinDisplay(props) {
         </tr>
       </table>
       <tbody>
-        <div className="watchlist--list">
-          {dashList.map((el, index) => {
-            return <CoinRow handleDelete = {(el) => handleDelete(el)} el={el}/>
-          })}
-          </div>
-          </tbody>
-          {/* <CoinRow handleDelete = {(el) => handleDelete(el)}/> */}
+        {dashList.map((el, index) => (
+          // return <CoinRow handleDelete = {(el) => handleDelete(el)} el={el}/>
+          <tr key={index}>
+            <td>
+              {" "}
+              <Link
+                style={{
+                  textDecoration: "underline",
+                  color: "blue",
+                  backgroundColor: "white",
+                }}
+                to={`/dashboard/${el.symbol.toLowerCase()}`}
+              >
+                {el.symbol}
+              </Link>
+            </td>
+            <td>{el.name}</td>
+            <td>
+              {roundToMillionOrBillion(roundToTwoDecimals(el.marketCapUsd))}
+            </td>
+            <td>${roundToTwoDecimals(el.priceUsd)}</td>
+            <td>{roundToMillionOrBillion(roundToTwoDecimals(el.supply))}</td>
+            <td>
+              {roundToMillionOrBillion(roundToTwoDecimals(el.volumeUsd24Hr))}
+            </td>
+            <td colSpan="6">
+              <button
+                className="delete_btn"
+                onClick={() => props.handleDelete(el)}
+              >
+                -
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+      {/* <CoinRow handleDelete = {(el) => handleDelete(el)}/> */}
     </div>
-  )
+  );
 }

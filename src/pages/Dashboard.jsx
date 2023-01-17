@@ -1,61 +1,90 @@
-import React, { useState, useEffect }  from 'react'
-import { Link } from 'react-router-dom'
-import CoinRow from '../components/CoinRow'
-import Searchbar from '../components/Searchbar'
-import SearchList from '../components/SearchList'
-import '../styles/Dashboard.css'
+import React, { useState, useEffect } from "react";
+import { Link, Route, Routes, useParams } from "react-router-dom";
+import CoinDisplay from "../components/CoinDisplay";
+import CoinRow from "../components/CoinRow";
+import Searchbar from "../components/Searchbar";
+import SearchList from "../components/SearchList";
+import HeadModule from "../components/HeadModule";
+import PriceChart from "../components/PriceChart";
+import "../styles/Dashboard.css";
+import NewsComponent from "../components/NewsComponent";
 
 export default function Dashboard(props) {
+  const { user, dashList, setDashList } = props
 
-  const { user } = props
-  ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////
-  // string captured from the search bar that is sent to the server
-  const [searchTerm, setSearchTerm] = useState('');
-  // array received from server containing detailed coin information
-  const [coinData, setCoinData] = useState([]);
-  
+  const [searchTerm, setSearchTerm] = useState(""); // string captured from the search bar that is sent to the server
+  const [coinData, setCoinData] = useState([]); // array received from server containing detailed coin information
   const [appUser, setAppUser] = useState(user); // user is an object with username and password
-  // array of ticker symbols to be sent to backend
-  const [dashList, setDashList] = useState([]);
-  // array of ticker details received from backend
-  const [watchlist, setWatchlist] = useState([{ticker: 'BTC'}, {ticker: 'ETH'}, {ticker: 'ADA'}]) 
+  const [watchlist, setWatchlist] = useState([]); // array of ticker details received from backend
 
 
   // event handler that deletes a ticker row from the dashboard
-  function handleDelete (ticker) {
-    // removes ticker details from dashList 
-    setDashList(dashList.filter(coinObject => coinObject.symbol !== ticker));
-    // removes ticker from watchlist
-    setWatchlist(watchlist.filter(coin => coin.symbol !== ticker));
-
-    // request to update user's watchlist
-    fetch('http://localhost:3001/dashboard', {
+  function handleDelete (coin) {
+    const deletion = {
       method: 'PUT',
       body: JSON.stringify({
-        ticker: ticker,
-        watchlist: watchlist,
-        username: appUser.username
+        ticker: coin.symbol,
+        username: user.username
       }),
       headers: {
         'Content-Type': 'application/json'
       }
+    }
+
+    // request to update user's watchlist
+    fetch('http://localhost:3001/dashboard/delete', deletion)
+    .then(response => response.json())
+    // .then(response => console.log(response))
+    .then(response => {
+      setWatchlist(response.watchlist);
+      setDashList(dashList.filter(coinObject => coinObject.symbol !== coin.symbol))
+      console.log(`removed ${coin.symbol} to watchlist`);
+      console.log('removed from dashlist: ', coin)
     })
-      .then(data => data.json())
-      .then(response => console.log('deleted ', ticker)) // consider making popup confirming deletion
+    .catch(err => console.log(err))
+
   }
   const handleAdd = (coin) => { // fix input, NOT TARGET!!!
     console.log('invoking handleAdd on search');
-    console.log('tickerName is ', coin);
-    console.log('dashList is ', dashList);
+    console.log('tickerName is ', coin.symbol);
+    // console.log('dashList is ', dashList);
+    const posting = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ticker: coin.symbol,
+        username: user.username
+      })
+    }
+    
+    fetch('http://localhost:3001/dashboard/search', posting)
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(response => {
+        // console.log('watchlist: ', watchlist);
+        // console.log('response: ', response.watchlist);
+        if(watchlist.includes(coin.symbol)) {
+          console.log('ticker already exists');
+          return alert('ticker already exists')
+        }
+        else {
+          setWatchlist(response.watchlist);
+          setDashList([...dashList, coin])
+          console.log(`added ${coin.symbol} to watchlist`);
+          console.log('added to dashlist: ', coin);
+        }
+      })
+      .catch(err => console.log(err))
 
-    setDashList([...dashList, coin]);
-    console.log('dashList is this after add', dashList);
   }
 
-  ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////
+
+  ////-------SEARCH FUNCTIONALITY---------//////
   const handleSearch = (term) => {
     setSearchTerm(term);
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,57 +100,54 @@ export default function Dashboard(props) {
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     fetchData();
   }, [searchTerm]);
 
+
   return (
     <div className="Dashboard">
+      <h1
+        className="LOGINH1"
+        style={{
+          backgroundColor: "white",
+          padding: "5px",
+          fontSize: "18px",
+          fontWeight: "900",
+        }}
+      >
+        Logged in as: {appUser.username}
+      </h1>
       <div className="head-module">
-        {/* <h1>Head Module</h1> */}
-        <div className="head-module--info">
-          {appUser.username}
-        </div>
-        <div className="watchlist-input">
-          {/* <Searchbar watchlist = {watchlist} setWatchlist = {(ticker) => setWatchlist(ticker)} dashList = {dashList} setDashList = {(ticker) => setWatchlist(ticker)}/> */}
-          <Searchbar onSearch={handleSearch}/>
-          <SearchList coinData={coinData} dashList={dashList} watchlist={watchlist} handleAdd={handleAdd}/>
-        </div>
+        <HeadModule
+          handleSearch={handleSearch}
+          coinData={coinData}
+          dashList={dashList}
+          watchList={watchlist}
+          handleAdd={handleAdd}
+        />
       </div>
-      <div className="price-chart">
-        <h1>Price Chart</h1>
+      <div className="news-module">
+        <h1 style={{textDecoration: 'underline'}} className="bg-white">News</h1>
+        <NewsComponent />
       </div>
       
       <div className="watchlist">
-        {/* <h1>Watchlist</h1> */}
-        <div className="watchlist--list">
-          <div className='watchlist--header'>
-            <table className='table'>
-              <tr>
-                <th className="table-cell">Symbol</th>
-                <th className="table-cell">Name</th>
-                <th className="table-cell">Marketcap</th>
-                <th className="table-cell">Price</th>
-                <th className="table-cell">Supply</th>
-                <th className="table-cell">Volume (24h)</th>
-                {/* <th>One Year</th> */}
-                {/* <th>Today Change</th> */}
-              </tr>
-            </table>
-            <tbody>
-              <div className="watchlist--list">
-                {dashList.map((el, index) => {
-                  return <CoinRow handleDelete = {(el) => handleDelete(el)} el={el}/>
-                })}
-                </div>
-                </tbody>
-                {/* <CoinRow handleDelete = {(el) => handleDelete(el)}/> */}
-              </div>
-            </div>
+        <CoinDisplay
+          dashList={dashList}
+          handleDelete={handleDelete}
+          searchTerm={searchTerm}
+          setCoinData={setCoinData}
+        />
       </div>
-      <div className="news-module">
-        <h1>News module</h1>
+      <div className="price-chart">
+        {/* <PriceChart /> */}
+        <Routes>
+          <Route path = '/' element={<h1 className="generate-chart-banner">Click on a coin to generate its chart</h1>} />
+          <Route path=":coinID" element={<PriceChart />} />
+        </Routes>
       </div>
+      
     </div>
-  )
+  );
 }

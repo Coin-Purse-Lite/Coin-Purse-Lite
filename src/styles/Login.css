@@ -3,7 +3,12 @@
 }
 
 .Login h1 {
-  font-weight: 900;
+  font-weight: 900 !important;
+  font-size: 30px !important;
+}
+
+h2 {
+  font-size: 24px;
 }
 
 
@@ -20,6 +25,7 @@
 
 .Login input {
   border: 1px lightgrey solid;
+  background-color: white;
   border-radius: 5px;
   padding: 4px;
 }
@@ -48,9 +54,15 @@
   background-color: #3a34d0;
 }
 
+
 .login-button a:hover {
   color: #322dbd;
   text-decoration: underline;
 }
 
 
+.signup-button a {
+  color: #3a34d0;
+  cursor: pointer;
+  text-decoration: underline;
+}

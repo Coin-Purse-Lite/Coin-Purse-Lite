@@ -12,9 +12,12 @@ const userController = {};
 userController.checkDB = (req, res, next) => {
   const { username } = req.body;
   console.log('checkDB running');
+  console.log('username in checkDB is ', username);
+  console.log('req.body is ', req.body);
 
   User.findOne({username: username})
     .then((user) => {
+      console.log('user is ', user);
       if (user) {
         res.locals.user = user;
         return next();
@@ -42,6 +45,8 @@ userController.verifyUser = (req, res, next) => {
       if (user) {
         bcrypt.compare(password, user.password)
           .then((result) => {
+            console.log(console.log());
+            console.log(result);
             if (result) {
               res.locals.user = user;
               return next();
@@ -106,10 +111,12 @@ userController.getUserInfo = (req, res, next) => {
 
 userController.createUser = (req, res, next) => {
   const { username, password } = req.body;
-  console.log(username, password);
   console.log('createUser running');
 
-  bcrypt.hash(password, 12) // use 12 instead of 10
+  //checks to see if username already exists, if so, don't allow create user
+  User.findOne({username: username}, (err, user) => {
+    if(user === null){
+    bcrypt.hash(password, 12) // use 12 instead of 10
     .then((hash) => {
       User.create({username: username, password: hash, watchList: []}) // create user with hashed password
         .then((user) => {
@@ -128,7 +135,12 @@ userController.createUser = (req, res, next) => {
     })
     .catch((err) => {
       next({ log: `Error in userController.createUser: ${err}` });
-    });
+    })}else if(user.username === username){
+      return next({
+        error: err
+      })
+    }
+  })  
 };
 
   //AddTicker -- update user watchlist in database with new ticker from search function
@@ -138,7 +150,15 @@ userController.createUser = (req, res, next) => {
     const id = user.id;
     const ticker = req.body.ticker;
     const updatedWatchlist = [...user.watchlist]; 
-    updatedWatchlist.push(ticker);
+    
+
+    if(updatedWatchlist.includes(ticker)){
+      next({
+        err: 'ticker already exists',
+      })
+    }else {
+      updatedWatchlist.push(ticker);
+    }
 
     //searches for user by id, and updates said user's watchlist with the new watchlist
     User.findOneAndUpdate({_id: id}, {watchlist: updatedWatchlist},{ new: true }, (err, updatedUser) => {
