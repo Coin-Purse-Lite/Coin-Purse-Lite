@@ -75,18 +75,15 @@ export default function Dashboard(props) {
       // .then(response => console.log(response))
       .then(response => {
         if(watchlist.includes(coin.symbol)) {
-          console.log('res.wl is ', response.watchlist)
-          console.log('watchlist is ', watchlist)
+          console.log('ticker already exists');
           return alert('ticker already exists')
         }
         else {
           setWatchlist(response.watchlist);
           setDashList([...dashList, coin])
+          console.log(`added ${coin.symbol} to watchlist`);
+          console.log('added to dashlist: ', coin);
         }
-      })
-      .then(response => {
-        console.log(`added ${coin.symbol} to watchlist`);
-        console.log('added to dashlist: ', coin);
       })
       .catch(err => console.log(err))
 
