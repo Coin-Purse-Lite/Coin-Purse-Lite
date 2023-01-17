@@ -5,6 +5,7 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import React, { useState } from 'react';
 import { Routes, Switch, Route, PrivateRoute} from 'react-router-dom';
+import PriceChart from './components/PriceChart';
 
 function App() {
 
@@ -22,9 +23,9 @@ function App() {
                   cookieSecure={window.location.protocol === "https:"}> */}
       <Routes>
         <Route path='/' element={<Signup />} />
-        <Route path='/signup' element={<Signup setUser = {(user) => setUser(user)} user={user}/>} />
+        <Route path='/signup' element={<Signup setUser = {(user) => setUser(user)} />} />
         <Route path='/login' element={<Login setUser = {(user) => setUser(user)} setDashList={setDashList} dashList={dashList}/>} />
-        <Route path='/dashboard' element={<Dashboard user = {user} setDashList={setDashList} dashList={dashList}/>} />
+        <Route path='/dashboard/*' element={<Dashboard user = {user} setDashList={setDashList} dashList={dashList}/>} />
       </Routes>
       {/* </AuthProvider> */}
     </div>

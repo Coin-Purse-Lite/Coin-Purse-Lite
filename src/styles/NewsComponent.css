@@ -1,0 +1,17 @@
+.news-list-container {
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  }
+  
+  .news-list-scroll {
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  }
+  
+  .news-list-item {
+  margin: 10px;
+  }

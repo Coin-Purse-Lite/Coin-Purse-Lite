@@ -14,3 +14,14 @@
 * {
   font-family: 'DM Sans', sans-serif;
 }
+
+h1 {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.LOGINH1 {
+  position: absolute;
+  top: 50px;
+  left: 108px;
+}

@@ -3,7 +3,8 @@
 }
 
 .Signup h1 {
-  font-weight: 900;
+  font-weight: 900 !important;
+  font-size: 30px !important;
 }
 
 
@@ -20,6 +21,7 @@
 
 .Signup input {
   border: 1px lightgrey solid;
+  background-color: white;
   border-radius: 5px;
   padding: 4px;
 }

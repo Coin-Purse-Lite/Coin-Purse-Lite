@@ -1,24 +1,29 @@
-import React, { useState, useEffect }  from 'react'
-import { Link } from 'react-router-dom'
-import CoinDisplay from '../components/CoinDisplay'
-import CoinRow from '../components/CoinRow'
-import Searchbar from '../components/Searchbar'
-import SearchList from '../components/SearchList'
-import HeadModule from '../components/HeadModule'
-import '../styles/Dashboard.css'
+import React, { useState, useEffect } from "react";
+import { Link, Route, Routes, useParams } from "react-router-dom";
+import CoinDisplay from "../components/CoinDisplay";
+import CoinRow from "../components/CoinRow";
+import Searchbar from "../components/Searchbar";
+import SearchList from "../components/SearchList";
+import HeadModule from "../components/HeadModule";
+import PriceChart from "../components/PriceChart";
+import "../styles/Dashboard.css";
+import NewsComponent from "../components/NewsComponent";
 
 export default function Dashboard(props) {
+  const { user } = props
 
-  const { user, dashList, setDashList } = props
-  ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////
-  // string captured from the search bar that is sent to the server
-  const [searchTerm, setSearchTerm] = useState('');
-  // array received from server containing detailed coin information
-  const [coinData, setCoinData] = useState([]);
-  
+  const [searchTerm, setSearchTerm] = useState(""); // string captured from the search bar that is sent to the server
+  const [coinData, setCoinData] = useState([]); // array received from server containing detailed coin information
   const [appUser, setAppUser] = useState(user); // user is an object with username and password
-  // array of ticker details received from backend
-  const [watchlist, setWatchlist] = useState([]) 
+  const [dashList, setDashList] = useState([]); // array of ticker symbols to be sent to backend
+  const [watchlist, setWatchlist] = useState([
+    { ticker: "BTC" },
+    { ticker: "ETH" },
+    { ticker: "ADA" },
+  ]); // array of ticker details received from backend
+
+
+  ////-------DELETE FUNCTIONALITY---------//////
 
 
   // event handler that deletes a ticker row from the dashboard
@@ -93,10 +98,11 @@ export default function Dashboard(props) {
 
   }
 
-  ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////
+
+  ////-------SEARCH FUNCTIONALITY---------//////
   const handleSearch = (term) => {
     setSearchTerm(term);
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -111,47 +117,69 @@ export default function Dashboard(props) {
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     fetchData();
   }, [searchTerm]);
 
+  ////-------RENDER WATCHLIST FUNCTIONALITY---------//////
+
+  // useEffect(() => {
+  //   fetch('http://localhost:3001/dashboard', {
+  //     method: 'POST',
+  //     body: JSON.stringify({
+  //       username: appUser.username
+  //     }),
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //     .then(data => data.json())
+  //     .then(response => {
+  //       console.log('response is ', response);
+  //       setWatchlist(response);
+  //     })
+  // }, [])
+
   return (
     <div className="Dashboard">
+      <h1
+        className="LOGINH1"
+        style={{
+          backgroundColor: "white",
+          padding: "5px",
+          fontSize: "18px",
+          fontWeight: "900",
+        }}
+      >
+        Logged in as: {appUser.username}
+      </h1>
       <div className="head-module">
-      <HeadModule
-      handleSearch = {handleSearch}
-      coinData = {coinData}
-      dashList = {dashList}
-      watchList = {watchlist}
-      handleAdd = {handleAdd}  />
+        <HeadModule
+          handleSearch={handleSearch}
+          coinData={coinData}
+          dashList={dashList}
+          watchList={watchlist}
+          handleAdd={handleAdd}
+        />
       </div>
-      {/* <div className="head-module">
-        {/* <h1>Head Module</h1> */}
-        {/* <div className="head-module--info">
-          {appUser.username}
-        </div> 
-        <div className="watchlist-input">
-          <Searchbar onSearch={handleSearch}/>
-          <SearchList coinData={coinData} dashList={dashList} watchlist={watchlist} handleAdd={handleAdd}/>
-        </div>
-      </div> */}
       <div className="price-chart">
-        <h1>Price Chart</h1>
+        {/* <PriceChart /> */}
+        <Routes>
+          <Route path=":coinID" element={<PriceChart />} />
+        </Routes>
       </div>
-      
       <div className="watchlist">
-        {/* <h1>Watchlist</h1> */}
-
-        <CoinDisplay 
-        dashList = {dashList} 
-        handleDelete = {handleDelete}
-        searchTerm = {searchTerm}
-        setCoinData = {setCoinData} />
-
+        <CoinDisplay
+          dashList={dashList}
+          handleDelete={handleDelete}
+          searchTerm={searchTerm}
+          setCoinData={setCoinData}
+        />
       </div>
       <div className="news-module">
-        <h1>News module</h1>
+        <h1 className="bg-white">News</h1>
+        <NewsComponent />
       </div>
     </div>
-  )
+  );
 }
