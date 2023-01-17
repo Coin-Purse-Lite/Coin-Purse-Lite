@@ -10,7 +10,7 @@ import "../styles/Dashboard.css";
 import NewsComponent from "../components/NewsComponent";
 
 export default function Dashboard(props) {
-const { user, dashList, setDashList } = props
+  const { user } = props
 
   const [searchTerm, setSearchTerm] = useState(""); // string captured from the search bar that is sent to the server
   const [coinData, setCoinData] = useState([]); // array received from server containing detailed coin information
