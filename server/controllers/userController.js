@@ -12,9 +12,12 @@ const userController = {};
 userController.checkDB = (req, res, next) => {
   const { username } = req.body;
   console.log('checkDB running');
+  console.log('username in checkDB is ', username);
+  console.log('req.body is ', req.body);
 
   User.findOne({username: username})
     .then((user) => {
+      console.log('user is ', user);
       if (user) {
         res.locals.user = user;
         return next();
@@ -147,7 +150,15 @@ userController.createUser = (req, res, next) => {
     const id = user.id;
     const ticker = req.body.ticker;
     const updatedWatchlist = [...user.watchlist]; 
-    updatedWatchlist.push(ticker);
+    
+
+    if(updatedWatchlist.includes(ticker)){
+      next({
+        err: 'ticker already exists',
+      })
+    }else {
+      updatedWatchlist.push(ticker);
+    }
 
     //searches for user by id, and updates said user's watchlist with the new watchlist
     User.findOneAndUpdate({_id: id}, {watchlist: updatedWatchlist},{ new: true }, (err, updatedUser) => {

@@ -6,7 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { getNextKeyDef } from "@testing-library/user-event/dist/keyboard/getNextKeyDef";
 
 export default function Login(props) {
-  const { masterUsername, setUser } = props;
+
+  const {masterUsername, setUser, dashList, setDashList} = props;
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -21,26 +22,27 @@ export default function Login(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error) {
-          navigate("/login");
-        } else {
-          console.log(data);
-          setUser(data);
-          // if (data.success) { // if the login was successful - make sure success is a key in response
-          navigate("/dashboard");
-          // }
-        }
+        "username": username,
+        "password": password
       })
-      .catch((err) => {
-        console.log(err);
+    })
+    .then(response => response.json())
+    .then((data) => {
+      if (data.error) {
         navigate("/login");
-      });
+      } else {
+        console.log(data);
+        setUser(data);
+        // if (data.success) { // if the login was successful - make sure success is a key in response
+        navigate("/dashboard");
+        // }
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      navigate('/login')
+    })
+
 
     // setUser({username: 'hello', password: 'test'});
     // navigate('/dashboard')
@@ -51,7 +53,8 @@ export default function Login(props) {
   }
 
   function handleUsernameChange(event) {
-    setUsername(event.target.value);
+    console.log('username is ', event.target.value);
+    setUsername(event.target.value)
   }
 
   /*

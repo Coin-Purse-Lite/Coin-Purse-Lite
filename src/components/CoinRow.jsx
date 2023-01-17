@@ -60,15 +60,10 @@ export default function CoinRow(props) {
 
             {/*// <td>{el.explorer}</td>
         // <td>{props.coinData.TODAY}</td> */}
-            <td colSpan="6">
-              <button
-                className="delete_btn"
-                onClick={() => props.handleDelete(el.symbol)}
-              >
-                -
-              </button>
-            </td>
-          </tr>
+        <td colSpan='6' >
+        <button className='delete_btn' onClick={() => props.handleDelete(el)}>-</button>
+        </td>
+        </tr>
         </tbody>
       </table>
     </div>

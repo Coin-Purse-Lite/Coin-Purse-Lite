@@ -12,6 +12,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({});
   // const [username, setUsername] = useState('');
+  const [dashList, setDashList] = useState([]);
 
 
   return (
@@ -22,9 +23,9 @@ function App() {
                   cookieSecure={window.location.protocol === "https:"}> */}
       <Routes>
         <Route path='/' element={<Signup />} />
-        <Route path='/signup' element={<Signup setUser = {(user) => setUser(user)} />} />
-        <Route path='/login' element={<Login setUser = {(user) => setUser(user)} />} />
-        <Route path='/dashboard/*' element={<Dashboard user = {user} />} />
+        <Route path='/signup' element={<Signup setUser = {(user) => setUser(user)} user={user}/>} />
+        <Route path='/login' element={<Login setUser = {(user) => setUser(user)} setDashList={setDashList} dashList={dashList}/>} />
+        <Route path='/dashboard/*' element={<Dashboard user = {user} setDashList={setDashList} dashList={dashList}/>} />
 
       </Routes>
       {/* </AuthProvider> */}
