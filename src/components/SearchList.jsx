@@ -71,7 +71,7 @@ const CoinList = (props) => {
 
   return (
       <div className='SearchList'>
-        <table>
+        <table className='table'>
           <thead>
             <tr>
               <th>Name</th>

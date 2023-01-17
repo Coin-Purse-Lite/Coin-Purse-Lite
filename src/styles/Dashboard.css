@@ -11,6 +11,9 @@
 }
 
 .head-module {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   border-radius: 8px;
   flex: 1 1 40%;
   background-color: #fff;
@@ -52,9 +55,14 @@
 
 tbody{
   max-height: 300px;
-  overflow-y: scroll;
 }
 
+.watchlist-input {
+  height: 100%;
+  max-height: 100%;
+  background-color: #fff;
+  /* overflow-y: scroll; */
+}
 
 
 .watchlist {
@@ -71,16 +79,24 @@ tbody{
   background-color: #fff;
 }
 
-
-.CoinRow {
-  overflow-y: scroll;
+.SearchList {
   width: 100%;
+  overflow-y: scroll;
+  max-height: 100%;
+  
 }
+
 
 .table-cell {
   width: 150px; /* set width to 150px */
   padding: 0.5em; /* add padding */
   text-align: left; /* align text to the left */
+}
+
+.CoinDisplay {
+  width: 100%;
+  overflow-y: scroll;
+  max-height: 100%;
 }
 
 td {
