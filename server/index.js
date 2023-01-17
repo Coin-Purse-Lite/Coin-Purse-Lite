@@ -44,7 +44,7 @@ app.post('/dashboard/search', userController.checkDB, userController.addTicker, 
 
 // routing for login
 
-app.post('/login', userController.verifyUser, (req, res) => { 
+app.post('/login',userController.checkDB, userController.verifyUser, (req, res) => { 
   console.log('login working');
   res.status(200).json(res.locals.user);
 });
