@@ -53,15 +53,6 @@ export default function Dashboard(props) {
 
   }
 
-  // const handleAdd = (coin) => { // fix input, NOT TARGET!!!
-  //   console.log('invoking handleAdd on search');
-  //   console.log('tickerName is ', coin);
-  //   console.log('dashList is ', dashList);
-
-  //   setDashList([...dashList, coin]);
-  //   console.log('dashList is this after add', dashList);
-  // }
-
   const handleAdd = (coin) => { // fix input, NOT TARGET!!!
     console.log('invoking handleAdd on search');
     console.log('tickerName is ', coin.symbol);
