@@ -1,16 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import '../styles/PriceChart.css';
 import { useParams } from 'react-router-dom';
+import stocklist from './stocklist.json';
+import { Line } from 'react-chartjs-2';
 
-export default function PriceChart(props) {
-  
+
+export default function PriceChart() {
   const { coinID } = useParams();
+  const [coinData, setCoinData] = useState({});
+  const [chartData, setChartData] = useState({});
+
+
+  useEffect(() => {
+    const data = findCoinData(coinID);
+    setCoinData(data);
+  }, [coinID]);
+
+  function findCoinData(symbol) {
+    const coin = stocklist.find(c => c.symbol === symbol);
+    return coin ? { id: coin.id, name: coin.name } : {};
+  }
+
+
+    useEffect(() => {
+    console.log(coinData);
+    console.log(coinData.id);
+    fetch(`https://api.coingecko.com/api/v3/coins/${coinData.id}/market_chart?vs_currency=USD&days=7&interval=daily`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setChartData(data);
+      })
+  }, [coinData]);
+
+
+  console.log(chartData);
+
+
 
   return (
     <div className="PriceChart">
-      <h1>{coinID}</h1>
-      {console.log(coinID)}
-      <h1>hello</h1>
+      {coinData.name}
+      {coinData.id}
     </div>
   )
 }

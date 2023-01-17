@@ -1,5 +1,5 @@
 import React, { useState, useEffect }  from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes, useParams } from 'react-router-dom'
 import CoinDisplay from '../components/CoinDisplay'
 import CoinRow from '../components/CoinRow'
 import Searchbar from '../components/Searchbar'
@@ -9,7 +9,6 @@ import PriceChart from '../components/PriceChart'
 import '../styles/Dashboard.css'
 
 export default function Dashboard(props) {
-
 
 
   const { user } = props
@@ -101,6 +100,9 @@ export default function Dashboard(props) {
   
 
  
+  
+  
+
 
 
   return (
@@ -114,9 +116,9 @@ export default function Dashboard(props) {
         handleAdd = {handleAdd}  />
     </div>
     <div className="price-chart">
+      {/* <PriceChart /> */}
       <Routes>
-        {/* <Route path = "/dashboard" element = {<PriceChart coin={coinID} />} /> */}
-        <Route path=":coinID" component={<PriceChart />} />
+        <Route path=":coinID" element={<PriceChart />} />
       </Routes>
     </div>
     <div className="watchlist">
