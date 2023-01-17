@@ -20,30 +20,34 @@ export default function Dashboard(props) {
   // array of ticker symbols to be sent to backend
   const [dashList, setDashList] = useState([]);
   // array of ticker details received from backend
-  const [watchlist, setWatchlist] = useState(['BTC', 'ETH', 'ADA']) 
+  const [watchlist, setWatchlist] = useState([]) 
 
 
   // event handler that deletes a ticker row from the dashboard
-  function handleDelete (ticker) {
-    // removes ticker details from dashList 
-    setDashList(dashList.filter(coinObject => coinObject.symbol !== ticker));
-    // removes ticker from watchlist
-    setWatchlist(watchlist.filter(coin => coin.symbol !== ticker));
-
-    // request to update user's watchlist
-    fetch('http://localhost:3001/dashboard', {
+  function handleDelete (coin) {
+    const deletion = {
       method: 'PUT',
       body: JSON.stringify({
-        ticker: ticker,
-        watchlist: watchlist,
-        username: appUser.username
+        ticker: coin.symbol,
+        username: "tanner"
       }),
       headers: {
         'Content-Type': 'application/json'
       }
+    }
+
+    // request to update user's watchlist
+    fetch('http://localhost:3001/dashboard/delete', deletion)
+    .then(response => response.json())
+    // .then(response => console.log(response))
+    .then(response => {
+      setWatchlist(response.watchlist);
+      setDashList(dashList.filter(coinObject => coinObject.symbol !== coin.symbol))
+      console.log(`removed ${coin.symbol} to watchlist`);
+      console.log('removed from dashlist: ', coin)
     })
-      .then(data => data.json())
-      .then(response => console.log('deleted ', ticker)) // consider making popup confirming deletion
+    .catch(err => console.log(err))
+
   }
 
   // const handleAdd = (coin) => { // fix input, NOT TARGET!!!
@@ -74,6 +78,8 @@ export default function Dashboard(props) {
       .then(response => response.json())
       // .then(response => console.log(response))
       .then(response => {
+        // console.log('watchlist: ', watchlist);
+        // console.log('response: ', response.watchlist);
         if(watchlist.includes(coin.symbol)) {
           console.log('ticker already exists');
           return alert('ticker already exists')
