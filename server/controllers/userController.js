@@ -148,7 +148,7 @@ userController.createUser = (req, res, next) => {
           error:err
         })
       }else{
-        res.locals.updatedUser = updatedUser;
+        res.locals.user = updatedUser;
         next();
       }
 
@@ -159,9 +159,14 @@ userController.createUser = (req, res, next) => {
   // removeTicker -- removes ticker from user watchlist
   userController.removeTicker = (req, res, next) => {
     console.log('entered removeTicker mmiddleware');
+    const ticker = req.body.ticker;
     const user = res.locals.user;
     const id = user.id;
-    const updatedWatchlist = [...req.body.watchlist]; 
+    const updatedWatchlist = [...user.watchlist]; 
+
+    //removes the ticker from the updated watchlist
+    const index = updatedWatchlist.indexOf(ticker);
+    updatedWatchlist.splice(index, 1);
 
     //searches for user by id, and updates said user's watchlist with the new watchlist
     User.findOneAndUpdate({_id: id}, {watchlist: updatedWatchlist}, { new: true }, (err, updatedUser) => {
@@ -172,7 +177,7 @@ userController.createUser = (req, res, next) => {
           error:err
         })
       }
-      res.locals.updatedUser = updatedUser
+      res.locals.updatedUser = updatedUser;
       next();
     })
 };

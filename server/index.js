@@ -37,7 +37,8 @@ app.use(express.static('/'))
 
 //controller to handle post request from "add" coin feature in front end. This adds ticker to user watchlist, and returns whole user
 app.post('/dashboard/search', userController.checkDB, userController.addTicker, (req,res) => {
-  res.json(res.locals.updatedUser);
+  console.log(res.locals.user);
+  res.json(res.locals.user);
 })
 
 
@@ -56,10 +57,17 @@ app.post('/signup', userController.createUser, (req, res) => {
 });
 
 
+//routing for the dashboard. sends back to the front-end the users relevant coin info based on tickers is User.marketlist
+  //is a post request, because it expects to receive the current username to find user via userController.checkDB
+app.post('/dashboard', userController.checkDB, apiController.getUserApiData, (req,res) => {
+  res.status(200).json(res.locals.coinInfo);
+})
+
 // routing for removing ticker from user watchlist
+  //expects username and ticker in req body
 app.put(
-  '/dashboard', 
-  // userController.checkDB,
+  '/dashboard/delete', 
+  userController.checkDB,
   userController.removeTicker, 
   (req, res) => {
     res.status(200).json(res.locals.updatedUser)
