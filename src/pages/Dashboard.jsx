@@ -79,23 +79,24 @@ export default function Dashboard(props) {
 
   return (
     <div className="Dashboard">
+      <div className="head-module">
       <HeadModule
       handleSearch = {handleSearch}
       coinData = {coinData}
       dashList = {dashList}
       watchList = {watchlist}
       handleAdd = {handleAdd}  />
-      <div className="head-module">
+      </div>
+      {/* <div className="head-module">
         {/* <h1>Head Module</h1> */}
         {/* <div className="head-module--info">
           {appUser.username}
-        </div> */}
+        </div> 
         <div className="watchlist-input">
-          {/* <Searchbar watchlist = {watchlist} setWatchlist = {(ticker) => setWatchlist(ticker)} dashList = {dashList} setDashList = {(ticker) => setWatchlist(ticker)}/> */}
           <Searchbar onSearch={handleSearch}/>
           <SearchList coinData={coinData} dashList={dashList} watchlist={watchlist} handleAdd={handleAdd}/>
         </div>
-      </div>
+      </div> */}
       <div className="price-chart">
         <h1>Price Chart</h1>
       </div>

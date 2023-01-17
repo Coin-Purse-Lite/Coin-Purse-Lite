@@ -87,7 +87,7 @@ const CoinList = (props) => {
                 <td>{coin.symbol}</td>
                 <td>{roundToTwoDecimals(coin.priceUsd)}</td>
                 <td>
-                  <button onClick={() => handleAdd(coin)}>Add</button>
+                  <button className='add-btn' onClick={() => handleAdd(coin)}>Add</button>
                 </td>
               </tr>
             ))}

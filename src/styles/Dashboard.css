@@ -3,6 +3,11 @@
   background-color: #f5f5f5;
 }
 
+h1 {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
 .Dashboard {
   display: flex;
   flex-wrap: wrap;
@@ -11,6 +16,7 @@
 }
 
 .head-module {
+  border: 2px lightgrey solid;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,35 +24,52 @@
   flex: 1 1 40%;
   background-color: #fff;
   margin: 0.5em;
+  height: 100%;
+  overflow: hidden;
+  max-height: 365px;
+}
+
+.HeadModule {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
   max-height: 365px;
 }
 
 .price-chart {
+  border: 2px lightgrey solid;
   border-radius: 8px;
   flex: 1 1 40%;
   background-color: #fff;
   margin: 0.5em;
   max-height: 365px;
+  height: 100%;
 }
 
 .watchlist {
+  /* padding: 10px;  */
   border-radius: 8px;
+  border: 2px lightgrey solid;
   flex: 1 1 40%;
   background-color: #fff;
   margin: 0.5em;
+  height: 100%;
   max-height: 365px;
   display: flex;
+  overflow-y: hidden;
   justify-content: center;
   align-items: flex-start;
 
 }
 
 .news-module {
+  border: 2px lightgrey solid;
   border-radius: 8px;
   flex: 1 1 40%;
   background-color: #fff;
   margin: 0.5em;
   max-height: 365px;
+  height: 100%;
 }
 
 
@@ -80,27 +103,174 @@ tbody{
 }
 
 .SearchList {
-  width: 100%;
+  background-color: #fff;
+  padding: 10px; 
+  width: 97.7%;
   overflow-y: scroll;
-  max-height: 100%;
-  
+  max-height: 345px;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  background-color: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #808080;
+  border-radius: 10px;
 }
 
 
 .table-cell {
+  
   width: 150px; /* set width to 150px */
   padding: 0.5em; /* add padding */
   text-align: left; /* align text to the left */
 }
 
 .CoinDisplay {
+  padding: 10px; 
+  background-color: #fff;
   width: 100%;
   overflow-y: scroll;
   max-height: 100%;
 }
 
+.SearchList td {
+  width: 100%; /* set width to 150px */
+
+}
+
+.CoinDisplay td {
+  width: 100vw; /* set width to 150px */
+}
+
 td {
-    width: 150px; /* set width to 150px */
     padding: 0.5em; /* add padding */
     text-align: left; /* align text to the left */
 }
+
+th {
+  background-color: #fff;
+  padding: 0.5em; /* add padding */
+}
+
+td {
+  background-color: #fff;
+}
+
+/* .SearchBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: none;
+  padding: 10px;
+} */
+
+.SearchBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  /* margin-top: 20px; */
+}
+
+.searchform {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.searchform input {
+  flex: 1;
+  padding: 4px 10px;
+  margin-right: 10px;
+  border: none;
+  font-size: 16px;
+}
+
+.searchform button {
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #808080;
+  color: white;
+  font-size: 16px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.searchform button:hover {
+  background-color: #3e8e41;
+}
+
+
+.add-btn {
+  padding: 5px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #808080;
+  color: white;
+  font-size: 12px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: #3e8e41;
+}
+
+
+table {
+  border-collapse: collapse; /* remove cell spacing */
+  width: 100%; /* set table width to 100% */
+}
+
+th, td {
+  display: table-cell; /* Make td elements display as table cells */
+  text-align: left; /* align text to the left */
+  border-bottom: 1px solid #ddd; /*add a bottom border to cells */
+}
+
+.delete_btn {
+  background-color: #f44336; /* set background color of button */
+  color: white; /* set text color of button */
+  padding: 0.5em 1em; /* add padding to button */
+  border-radius: 4px; /* add border radius to button */
+  border: none; /* remove border from button */
+  cursor: pointer; /* change cursor to pointer when hovering over button */
+}
+
+.delete_btn:hover {
+  background-color: #da190b; /* change background color of button on hover */
+}
+
+
+@media only screen and (max-width: 1300px) {
+  .Dashboard {
+    flex-direction: column;
+    padding: 10px;
+    height: auto;
+    }
+    
+    .head-module, .price-chart, .watchlist, .news-module {
+    flex: 1 1 100%;
+    max-height: none;
+    }
+    
+    .table-cell {
+    width: 100%;
+    }
+    
+    .SearchList, .CoinDisplay {
+    max-height: none;
+    }
+    }
+    
+        
