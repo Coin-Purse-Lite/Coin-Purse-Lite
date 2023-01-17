@@ -1,7 +1,7 @@
-*{
+* {
   margin: 0;
   background-color: #f5f5f5;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
 }
 
 h1 {
@@ -71,13 +71,12 @@ h1 {
   margin: 0.5em;
   max-height: 365px;
   height: 100%;
+  overflow-y: hidden;
 }
-
 
 /* table */
 
-
-tbody{
+tbody {
   max-height: 300px;
 }
 
@@ -88,24 +87,25 @@ tbody{
   /* overflow-y: scroll; */
 }
 
-
 .watchlist {
-  width: 100%; /* set the width of the watchlist div to 100% */
+  width: 100%;
+  /* set the width of the watchlist div to 100% */
 }
 
 .watchlist--header {
-  width: 100%; /* set the width of the watchlist--header div to 100% */
-  
+  width: 100%;
+  /* set the width of the watchlist--header div to 100% */
 }
 
 .watchlist--list {
-  width: 100%; /* set the width of the watchlist--list div to 100% */
+  width: 100%;
+  /* set the width of the watchlist--list div to 100% */
   background-color: #fff;
 }
 
 .SearchList {
   background-color: #fff;
-  padding: 10px; 
+  padding: 10px;
   width: 97.7%;
   overflow-y: scroll;
   max-height: 345px;
@@ -121,16 +121,17 @@ tbody{
   border-radius: 10px;
 }
 
-
 .table-cell {
-  
-  width: 150px; /* set width to 150px */
-  padding: 0.5em; /* add padding */
-  text-align: left; /* align text to the left */
+  width: 150px;
+  /* set width to 150px */
+  padding: 0.5em;
+  /* add padding */
+  text-align: left;
+  /* align text to the left */
 }
 
 .CoinDisplay {
-  padding: 10px; 
+  padding: 10px;
   background-color: #fff;
   width: 100%;
   overflow-y: scroll;
@@ -138,22 +139,26 @@ tbody{
 }
 
 .SearchList td {
-  width: 100%; /* set width to 150px */
-
+  width: 100%;
+  /* set width to 150px */
 }
 
 .CoinDisplay td {
-  width: 100vw; /* set width to 150px */
+  width: 100vw;
+  /* set width to 150px */
 }
 
 td {
-    padding: 0.5em; /* add padding */
-    text-align: left; /* align text to the left */
+  padding: 0.5em;
+  /* add padding */
+  text-align: left;
+  /* align text to the left */
 }
 
 th {
   background-color: #fff;
-  padding: 0.5em; /* add padding */
+  padding: 0.5em;
+  /* add padding */
 }
 
 td {
@@ -213,7 +218,6 @@ td {
   background-color: #3a34d0;
 }
 
-
 .add-btn {
   padding: 5px 20px;
   border-radius: 8px;
@@ -229,52 +233,69 @@ td {
   background-color: #3a34d0;
 }
 
-
 table {
-  border-collapse: collapse; /* remove cell spacing */
-  width: 100%; /* set table width to 100% */
+  border-collapse: collapse;
+  /* remove cell spacing */
+  width: 100%;
+  /* set table width to 100% */
 }
 
-th, td {
-  display: table-cell; /* Make td elements display as table cells */
-  text-align: left; /* align text to the left */
-  border-bottom: 1px solid #ddd; /*add a bottom border to cells */
+th,
+td {
+  display: table-cell;
+  /* Make td elements display as table cells */
+  text-align: left;
+  /* align text to the left */
+  border-bottom: 1px solid #ddd;
+  /*add a bottom border to cells */
 }
 
 .delete_btn {
-  background-color: #f44336; /* set background color of button */
-  color: white; /* set text color of button */
-  padding: 0.5em 1em; /* add padding to button */
-  border-radius: 4px; /* add border radius to button */
-  border: none; /* remove border from button */
-  cursor: pointer; /* change cursor to pointer when hovering over button */
+  background-color: #f44336;
+  /* set background color of button */
+  color: white;
+  /* set text color of button */
+  padding: 0.5em 1em;
+  /* add padding to button */
+  border-radius: 4px;
+  /* add border radius to button */
+  border: none;
+  /* remove border from button */
+  cursor: pointer;
+  /* change cursor to pointer when hovering over button */
 }
 
 .delete_btn:hover {
-  background-color: #da190b; /* change background color of button on hover */
+  background-color: #da190b;
+  /* change background color of button on hover */
 }
 
-
 @media only screen and (max-width: 1300px) {
+  .LOGINH1 {
+    display: none;
+  }
+
   .Dashboard {
     margin-right: 18px;
     flex-direction: column;
     padding: 10px;
     height: auto;
-    }
-    
-    .head-module, .price-chart, .watchlist, .news-module {
+  }
+
+  .head-module,
+  .price-chart,
+  .watchlist,
+  .news-module {
     flex: 1 1 100%;
     max-height: none;
-    }
-    
-    .table-cell {
+  }
+
+  .table-cell {
     width: 100%;
-    }
-    
-    .SearchList, .CoinDisplay {
+  }
+
+  .SearchList,
+  .CoinDisplay {
     max-height: none;
-    }
-    }
-    
-        
+  }
+}

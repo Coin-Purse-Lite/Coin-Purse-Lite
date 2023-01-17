@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from "react";
 
 // export default function Searchbar(props) {
 
 //   const { setWatchlist, watchlist, dashList, setDashList }  = props
 
-//   //Obtaining the search bar ticker name 
+//   //Obtaining the search bar ticker name
 //   const [ tickerName, setTickerName ] = useState("")
 
 //   // change tickerName state to input value
@@ -12,18 +12,18 @@ import React, {useState, useEffect} from 'react'
 //     setTickerName(event.target.value)
 //   }
 
-//   //This adds new ticker to the existing array of tickers 
+//   //This adds new ticker to the existing array of tickers
 //   //? coin or ticker?
 //   function handleAdd (target) { // fix input, NOT TARGET!!!
 //     console.log('invoking handleAdd on search');
 //     console.log('tickerName is ', tickerName);
 
-//     // fetch request 
+//     // fetch request
 //     fetch('http://localhost:3001/dashboard/search', {
 //       method: 'POST',
 //       body: JSON.stringify({
 //         ticker: tickerName,
-        
+
 //       }), // should send tickername, username
 //       headers: {'Content-Type': 'application/json'}
 //       }
@@ -39,34 +39,32 @@ import React, {useState, useEffect} from 'react'
 //         }
 //       })
 //     }
-  
-    
 
 //   return (
 //     <div className="Searchbar">
 //       {/* Capture inputed text and set as value of ticker */}
-//       <input type="text" placeholder='Ticker...' value={tickerName} onChange={onSearchChange}/> 
+//       <input type="text" placeholder='Ticker...' value={tickerName} onChange={onSearchChange}/>
 //       {/* Upon click event, add new ticker to watchList */}
 //       <button onClick={handleAdd} className='addticker-button'>Add</button>
 //     </div>
 //   )
 // }
 
-const Searchbar = ({ onSearch}) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const Searchbar = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     onSearch(searchTerm);
-  }
+  };
 
   return (
     <div className="SearchBar">
-      <form className='searchform' onSubmit={handleSubmit}>
+      <form className="searchform" onSubmit={handleSubmit}>
         <input
           type="text"
           value={searchTerm}
@@ -77,6 +75,6 @@ const Searchbar = ({ onSearch}) => {
       </form>
     </div>
   );
-}
+};
 
 export default Searchbar;

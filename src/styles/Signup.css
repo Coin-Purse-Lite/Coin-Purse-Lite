@@ -3,7 +3,8 @@
 }
 
 .Signup h1 {
-  font-weight: 900;
+  font-weight: 900 !important;
+  font-size: 30px !important;
 }
 
 
