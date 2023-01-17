@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/PriceChart.css';
 import { useParams } from 'react-router-dom';
 import stocklist from './stocklist.json';
-import { Line } from 'react-chartjs-2';
+import Chart from './Chart';
 
 
 export default function PriceChart() {
@@ -21,6 +21,10 @@ export default function PriceChart() {
     return coin ? { id: coin.id, name: coin.name } : {};
   }
 
+
+
+
+  
 
     useEffect(() => {
     console.log(coinData);
@@ -46,6 +50,7 @@ export default function PriceChart() {
     <div className="PriceChart">
       {coinData.name}
       {coinData.id}
+      <Chart chartData={chartData} />
     </div>
   )
 }
