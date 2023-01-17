@@ -43,39 +43,13 @@ export default function Dashboard(props) {
       .then(data => data.json())
       .then(response => console.log('deleted ', ticker)) // consider making popup confirming deletion
   }
-
   const handleAdd = (coin) => { // fix input, NOT TARGET!!!
     console.log('invoking handleAdd on search');
-    console.log('tickerName is ', coin.symbol);
+    console.log('tickerName is ', coin);
     console.log('dashList is ', dashList);
-    
-    if (!watchlist.find( el => el.ticker === coin.symbol)) {
-      setDashList([...dashList, coin]);
-      console.log('dashList is this after add', dashList); 
 
-      const fetchData = async () => {
-        const posting = {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: {
-            ticker: coin.symbol,
-            username: appUser
-          }
-        }
-        try{
-          const response = await fetch('http://localhost:3001/dashboard/search', posting);
-          const data = await response.json(); // is this the updated watchlist or just the ticker that is sent back
-          setWatchlist(data.watchlist);
-        } catch(err) {
-          console.log(err);
-        }
-      }
-      fetchData();
-      console.log('added ticker to ', watchlist);
-    }
+    setDashList([...dashList, coin]);
+    console.log('dashList is this after add', dashList);
   }
 
   ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////
