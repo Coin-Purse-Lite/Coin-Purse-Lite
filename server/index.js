@@ -64,9 +64,10 @@ app.post('/dashboard', userController.checkDB, apiController.getUserApiData, (re
 })
 
 // routing for removing ticker from user watchlist
+  //expects username and ticker in req body
 app.put(
-  '/dashboard', 
-  // userController.checkDB,
+  '/dashboard/delete', 
+  userController.checkDB,
   userController.removeTicker, 
   (req, res) => {
     res.status(200).json(res.locals.updatedUser)
