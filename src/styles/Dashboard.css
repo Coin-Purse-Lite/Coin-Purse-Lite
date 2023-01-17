@@ -17,7 +17,7 @@ h1 {
 }
 
 .head-module {
-  border: 2px lightgrey solid;
+  border: 1px lightgrey solid;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,7 +38,7 @@ h1 {
 }
 
 .price-chart {
-  border: 2px lightgrey solid;
+  border: 1px lightgrey solid;
   border-radius: 8px;
   flex: 1 1 40%;
   background-color: #fff;
@@ -50,7 +50,7 @@ h1 {
 .watchlist {
   /* padding: 10px;  */
   border-radius: 8px;
-  border: 2px lightgrey solid;
+  border: 1px lightgrey solid;
   flex: 1 1 40%;
   background-color: #fff;
   margin: 0.5em;
@@ -64,7 +64,7 @@ h1 {
 }
 
 .news-module {
-  border: 2px lightgrey solid;
+  border: 1px lightgrey solid;
   border-radius: 8px;
   flex: 1 1 40%;
   background-color: #fff;
