@@ -7,7 +7,7 @@ import { getNextKeyDef } from '@testing-library/user-event/dist/keyboard/getNext
 
 export default function Login(props) {
 
-  const {masterUsername, setUser} = props;
+  const {masterUsername, setUser, dashList, setDashList} = props;
   const navigate = useNavigate();
 
   const [username, setUsername] = useState('')
@@ -23,16 +23,19 @@ export default function Login(props) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        username: username,
-        password: password
+        "username": username,
+        "password": password
       })
     })
     .then(response => response.json())
     .then(data => {
       console.log(data)
-      setUser(data);
+      setUser(data.user);
       // if (data.success) { // if the login was successful - make sure success is a key in response
-        navigate('/dashboard')
+      setDashList(data.coinInfo);
+      console.log('returned user is ', data.user);
+      console.log('coinInfo is ', data.coinInfo);
+      navigate('/dashboard')
       // }
     })
     .catch(err => {
@@ -52,6 +55,7 @@ export default function Login(props) {
 
 
   function handleUsernameChange(event) {
+    console.log('username is ', event.target.value);
     setUsername(event.target.value)
   }
 

@@ -9,7 +9,7 @@ import '../styles/Dashboard.css'
 
 export default function Dashboard(props) {
 
-  const { user } = props
+  const { user, dashList, setDashList } = props
   ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////
   // string captured from the search bar that is sent to the server
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,8 +17,6 @@ export default function Dashboard(props) {
   const [coinData, setCoinData] = useState([]);
   
   const [appUser, setAppUser] = useState(user); // user is an object with username and password
-  // array of ticker symbols to be sent to backend
-  const [dashList, setDashList] = useState([]);
   // array of ticker details received from backend
   const [watchlist, setWatchlist] = useState([]) 
 
@@ -29,7 +27,7 @@ export default function Dashboard(props) {
       method: 'PUT',
       body: JSON.stringify({
         ticker: coin.symbol,
-        username: "tanner"
+        username: user
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -70,7 +68,7 @@ export default function Dashboard(props) {
       },
       body: JSON.stringify({
         ticker: coin.symbol,
-        username: 'tanner'
+        username: user.username
       })
     }
     
