@@ -29,11 +29,15 @@ export default function Login(props) {
     })
     .then(response => response.json())
     .then(data => {
+      if (data.error){
+        navigate('/login');
+    } else {
       console.log(data)
       setUser(data);
       // if (data.success) { // if the login was successful - make sure success is a key in response
         navigate('/dashboard')
       // }
+    }
     })
     .catch(err => {
       console.log(err)

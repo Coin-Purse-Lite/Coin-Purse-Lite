@@ -5,7 +5,7 @@
 }
 
 h1 {
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 8px;
 }
 
@@ -197,18 +197,20 @@ td {
 }
 
 .searchform button {
-  padding: 5px 12px;
-  border-radius: 8px;
-  border: none;
-  background-color: #808080;
+  font-size: 14px;
+  margin: 3px;
+  font-weight: 500;
+  background-color: #6246ea;
   color: white;
-  font-size: 16px;
-  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  padding: 4px;
+  width: 100px;
   cursor: pointer;
 }
 
 .searchform button:hover {
-  background-color: #3e8e41;
+  background-color: #3a34d0;
 }
 
 
@@ -224,7 +226,7 @@ td {
 }
 
 .add-btn:hover {
-  background-color: #3e8e41;
+  background-color: #3a34d0;
 }
 
 
