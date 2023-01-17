@@ -25,7 +25,7 @@ function App() {
         <Route path='/' element={<Signup />} />
         <Route path='/signup' element={<Signup setUser = {(user) => setUser(user)} />} />
         <Route path='/login' element={<Login setUser = {(user) => setUser(user)} setDashList={setDashList} dashList={dashList}/>} />
-        <Route path='/dashboard/*' element={<Dashboard user = {user} />} />
+        <Route path='/dashboard/*' element={<Dashboard user = {user} setDashList={setDashList} dashList={dashList}/>} />
       </Routes>
       {/* </AuthProvider> */}
     </div>
