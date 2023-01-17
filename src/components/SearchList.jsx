@@ -16,48 +16,6 @@ const CoinList = (props) => {
 
   console.log("this is the array of coins", coinData);
 
-  //   const data = {
-  //       labels: coinData.map(coin => coin.name),
-  //       datasets: [
-  //         {
-  //           label: 'Price (USD)',
-  //           data: coinData.map(coin => coin.priceUsd),
-  //           backgroundColor: 'rgba(255, 99, 132, 0.2)',
-  //           borderColor: 'rgba(255, 99, 132, 1)',
-  //           borderWidth: 1
-  //         }
-  //       ]
-  //     };
-
-  //   const handleAdd = (coin) => { // fix input, NOT TARGET!!!
-  //     console.log('invoking handleAdd on search');
-  //     console.log('tickerName is ', coin);
-  //     console.log('dashList is ', dashList);
-
-  //     dashList.push(coin);
-  //     console.log('dashList is this after add', dashList);
-
-  // fetch request
-  // fetch('http://localhost:3001/dashboard/search', {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     ticker: symbol,
-
-  //   }), // should send tickername, username
-  //   headers: {'Content-Type': 'application/json'}
-  //   }
-  // )
-  //   .then((response) => {
-  //   response.json()
-  //   console.log(response);
-  //   })  // will receive list of all tickers as an array of objects
-  //   .then((response) => {
-  //     console.log(response)
-  //     if(response.ok) {
-  //       setDashList(dashList.push(response)) // alternatively pass in callback
-  //     }
-  //   })
-  // }
 
   function roundToTwoDecimals(number) {
     return Math.round(number * 100) / 100;
@@ -92,7 +50,7 @@ const CoinList = (props) => {
               <td>{roundToTwoDecimals(coin.priceUsd)}</td>
               <td>
                 <button className="add-btn" onClick={() => handleAdd(coin)}>
-                  Add
+                  +
                 </button>
               </td>
             </tr>
