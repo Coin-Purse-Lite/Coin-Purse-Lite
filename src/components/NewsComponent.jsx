@@ -6,14 +6,14 @@ const NewsList = () => {
 
 
 // UNCOMMENT THIS TO MAKE NEWS WORK 
-useEffect(() => {
-  fetch('https://newsdata.io/api/1/news?apikey=pub_15756f4c306903b3dad2ec9ca6134e06324ae&q=crypto&language=en')
-      .then(res => res.json())
-      .then(data => {
-          setNewsData(data.results);
-      })
-      .catch(err => console.log(err));
-}, []);
+// useEffect(() => {
+//   fetch('https://newsdata.io/api/1/news?apikey=pub_15756f4c306903b3dad2ec9ca6134e06324ae&q=crypto&language=en')
+//       .then(res => res.json())
+//       .then(data => {
+//           setNewsData(data.results);
+//       })
+//       .catch(err => console.log(err));
+// }, []);
 
 
   return (
