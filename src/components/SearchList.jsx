@@ -70,32 +70,30 @@ const CoinList = (props) => {
     
 
   return (
-      <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Symbol</th>
-          <th>Price</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {coinData.slice(0,10).map(coin => (
-          <tr key={coin.id}>
-            <td>{coin.name}</td>
-            <td>{coin.symbol}</td>
-            <td>{roundToTwoDecimals(coin.priceUsd)}</td>
-            <td>
-              <button onClick={() => handleAdd(coin)}>Add</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-    </div>
-
-
+      <div className='SearchList'>
+        <table className='table'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {coinData.slice(0,10).map(coin => (
+              <tr key={coin.id}>
+                <td>{coin.name}</td>
+                <td>{coin.symbol}</td>
+                <td>{roundToTwoDecimals(coin.priceUsd)}</td>
+                <td>
+                  <button className='add-btn' onClick={() => handleAdd(coin)}>Add</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
   );
 }
   
