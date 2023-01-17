@@ -27,7 +27,7 @@ export default function Dashboard(props) {
       method: 'PUT',
       body: JSON.stringify({
         ticker: coin.symbol,
-        username: user
+        username: user.username
       }),
       headers: {
         'Content-Type': 'application/json'
