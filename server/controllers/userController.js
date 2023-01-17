@@ -42,6 +42,8 @@ userController.verifyUser = (req, res, next) => {
       if (user) {
         bcrypt.compare(password, user.password)
           .then((result) => {
+            console.log(console.log());
+            console.log(result);
             if (result) {
               res.locals.user = user;
               return next();
@@ -106,10 +108,12 @@ userController.getUserInfo = (req, res, next) => {
 
 userController.createUser = (req, res, next) => {
   const { username, password } = req.body;
-  console.log(username, password);
   console.log('createUser running');
 
-  bcrypt.hash(password, 12) // use 12 instead of 10
+  //checks to see if username already exists, if so, don't allow create user
+  User.findOne({username: username}, (err, user) => {
+    if(user === null){
+    bcrypt.hash(password, 12) // use 12 instead of 10
     .then((hash) => {
       User.create({username: username, password: hash, watchList: []}) // create user with hashed password
         .then((user) => {
@@ -128,7 +132,12 @@ userController.createUser = (req, res, next) => {
     })
     .catch((err) => {
       next({ log: `Error in userController.createUser: ${err}` });
-    });
+    })}else if(user.username === username){
+      return next({
+        error: err
+      })
+    }
+  })  
 };
 
   //AddTicker -- update user watchlist in database with new ticker from search function
