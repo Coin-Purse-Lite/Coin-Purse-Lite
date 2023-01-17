@@ -22,21 +22,24 @@ export default function Login(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        "username": username,
-        "password": password
+        username: username,
+        password: password
       })
     })
     .then(response => response.json())
-    .then((data) => {
+    .then(data => {
       if (data.error) {
-        navigate("/login");
+        navigate('/login')
       } else {
-        console.log(data);
-        setUser(data);
+        console.log(data)
+        setUser(data.user);
         // if (data.success) { // if the login was successful - make sure success is a key in response
-        navigate("/dashboard");
-        // }
+        setDashList(data.coinInfo);
+        console.log('returned user is ', data.user);
+        console.log('coinInfo is ', data.coinInfo);
+        navigate('/dashboard')
       }
+      // }
     })
     .catch(err => {
       console.log(err)
@@ -53,38 +56,12 @@ export default function Login(props) {
   }
 
   function handleUsernameChange(event) {
-    console.log('username is ', event.target.value);
+
+    // console.log('username is', event.target.value);
     setUsername(event.target.value)
+
   }
 
-  /*
-  const signIn = useSignIn()
-  const [formData, setFormData] = React.useState({email: '', password: ''});
-
-    const onSubmit = (e) => {
-    
-      e.preventDefault()
-      axios.post('/api/login', formData)
-        .then((res)=>{
-          if(res.status === 200){
-            if(signIn(
-              {
-                token: res.data.token,
-                expiresIn:res.data.expiresIn,
-                tokenType: "Bearer",
-                authState: res.data.authUserState,
-                refreshToken: res.data.refreshToken,                    // Only if you are using refreshToken feature
-                refreshTokenExpireIn: res.data.refreshTokenExpireIn     // Only if you are using refreshToken feature
-              }
-            )){
-            // Redirect to dashboard #####**#*#**#*#*#*#*  START HERE ON SATURDAY  *$**#*%*&#((#(&#)))
-            }else {
-            //Throw error
-            }
-          }
-        })
-    }
-    */
 
   return (
     <div className="Login">

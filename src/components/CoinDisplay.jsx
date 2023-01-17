@@ -74,9 +74,16 @@ export default function CoinDisplay(props) {
             </td>
             <td>${roundToTwoDecimals(el.priceUsd)}</td>
             <td>{roundToMillionOrBillion(roundToTwoDecimals(el.supply))}</td>
-            <td>{roundToMillionOrBillion(roundToTwoDecimals(el.volumeUsd24Hr))}</td>
-            <td colSpan='6' >
-            <button className='delete_btn' onClick={() => props.handleDelete(el)}>-</button>
+            <td>
+              {roundToMillionOrBillion(roundToTwoDecimals(el.volumeUsd24Hr))}
+            </td>
+            <td colSpan="6">
+              <button
+                className="delete_btn"
+                onClick={() => props.handleDelete(el)}
+              >
+                -
+              </button>
             </td>
           </tr>
         ))}
