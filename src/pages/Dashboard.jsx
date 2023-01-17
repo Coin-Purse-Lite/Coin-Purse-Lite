@@ -10,20 +10,12 @@ import "../styles/Dashboard.css";
 import NewsComponent from "../components/NewsComponent";
 
 export default function Dashboard(props) {
-  const { user } = props
+  const { user, dashList, setDashList } = props
 
   const [searchTerm, setSearchTerm] = useState(""); // string captured from the search bar that is sent to the server
   const [coinData, setCoinData] = useState([]); // array received from server containing detailed coin information
   const [appUser, setAppUser] = useState(user); // user is an object with username and password
-  const [dashList, setDashList] = useState([]); // array of ticker symbols to be sent to backend
-  const [watchlist, setWatchlist] = useState([
-    { ticker: "BTC" },
-    { ticker: "ETH" },
-    { ticker: "ADA" },
-  ]); // array of ticker details received from backend
-
-
-  ////-------DELETE FUNCTIONALITY---------//////
+  const [watchlist, setWatchlist] = useState([]); // array of ticker details received from backend
 
 
   // event handler that deletes a ticker row from the dashboard
@@ -32,7 +24,7 @@ export default function Dashboard(props) {
       method: 'PUT',
       body: JSON.stringify({
         ticker: coin.symbol,
-        username: user
+        username: user.username
       }),
       headers: {
         'Content-Type': 'application/json'
