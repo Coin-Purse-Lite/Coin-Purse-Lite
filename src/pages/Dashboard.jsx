@@ -29,7 +29,7 @@ export default function Dashboard(props) {
     setWatchlist(watchlist.filter(coin => coin.symbol !== ticker));
 
     // request to update user's watchlist
-    fetch('http://localhost:3001/dashboard', {
+    fetch('http://localhost:3001/dashboard/delete', {
       method: 'PUT',
       body: JSON.stringify({
         ticker: ticker,
