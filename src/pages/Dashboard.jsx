@@ -10,77 +10,75 @@ import "../styles/Dashboard.css";
 import NewsComponent from "../components/NewsComponent";
 
 export default function Dashboard(props) {
-  const { user, dashList, setDashList } = props
+  const { user, dashList, setDashList } = props;
 
   const [searchTerm, setSearchTerm] = useState(""); // string captured from the search bar that is sent to the server
   const [coinData, setCoinData] = useState([]); // array received from server containing detailed coin information
   const [appUser, setAppUser] = useState(user); // user is an object with username and password
   const [watchlist, setWatchlist] = useState([]); // array of ticker details received from backend
 
-
   // event handler that deletes a ticker row from the dashboard
-  function handleDelete (coin) {
+  function handleDelete(coin) {
     const deletion = {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify({
         ticker: coin.symbol,
-        username: user.username
+        username: user.username,
       }),
       headers: {
-        'Content-Type': 'application/json'
-      }
-    }
+        "Content-Type": "application/json",
+      },
+    };
 
     // request to update user's watchlist
-    fetch('http://localhost:3001/dashboard/delete', deletion)
-    .then(response => response.json())
-    // .then(response => console.log(response))
-    .then(response => {
-      setWatchlist(response.watchlist);
-      setDashList(dashList.filter(coinObject => coinObject.symbol !== coin.symbol))
-      console.log(`removed ${coin.symbol} to watchlist`);
-      console.log('removed from dashlist: ', coin)
-    })
-    .catch(err => console.log(err))
-
+    fetch("http://localhost:3001/dashboard/delete", deletion)
+      .then((response) => response.json())
+      // .then(response => console.log(response))
+      .then((response) => {
+        setWatchlist(response.watchlist);
+        setDashList(
+          dashList.filter((coinObject) => coinObject.symbol !== coin.symbol)
+        );
+        console.log(`removed ${coin.symbol} to watchlist`);
+        console.log("removed from dashlist: ", coin);
+      })
+      .catch((err) => console.log(err));
   }
 
-  const handleAdd = (coin) => { // fix input, NOT TARGET!!!
-    console.log('invoking handleAdd on search');
-    console.log('tickerName is ', coin.symbol);
+  const handleAdd = (coin) => {
+    // fix input, NOT TARGET!!!
+    console.log("invoking handleAdd on search");
+    console.log("tickerName is ", coin.symbol);
     // console.log('dashList is ', dashList);
     const posting = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         ticker: coin.symbol,
-        username: user.username
-      })
-    }
-    
-    fetch('http://localhost:3001/dashboard/search', posting)
-      .then(response => response.json())
+        username: user.username,
+      }),
+    };
+
+    fetch("http://localhost:3001/dashboard/search", posting)
+      .then((response) => response.json())
       // .then(response => console.log(response))
-      .then(response => {
+      .then((response) => {
         // console.log('watchlist: ', watchlist);
         // console.log('response: ', response.watchlist);
-        if(watchlist.includes(coin.symbol)) {
-          console.log('ticker already exists');
-          return alert('ticker already exists')
-        }
-        else {
+        if (watchlist.includes(coin.symbol)) {
+          console.log("ticker already exists");
+          return alert("ticker already exists");
+        } else {
           setWatchlist(response.watchlist);
-          setDashList([...dashList, coin])
+          setDashList([...dashList, coin]);
           console.log(`added ${coin.symbol} to watchlist`);
-          console.log('added to dashlist: ', coin);
+          console.log("added to dashlist: ", coin);
         }
       })
-      .catch(err => console.log(err))
-
-  }
-
+      .catch((err) => console.log(err));
+  };
 
   ////-------SEARCH FUNCTIONALITY---------//////
   const handleSearch = (term) => {
@@ -103,7 +101,6 @@ export default function Dashboard(props) {
     };
     fetchData();
   }, [searchTerm]);
-
 
   return (
     <div className="Dashboard">
@@ -128,10 +125,12 @@ export default function Dashboard(props) {
         />
       </div>
       <div className="news-module">
-        <h1 style={{textDecoration: 'underline'}} className="bg-white">News</h1>
+        <h1 style={{ textDecoration: "underline" }} className="bg-white">
+          News
+        </h1>
         <NewsComponent />
       </div>
-      
+
       <div className="watchlist">
         <CoinDisplay
           dashList={dashList}
@@ -143,11 +142,17 @@ export default function Dashboard(props) {
       <div className="price-chart">
         {/* <PriceChart /> */}
         <Routes>
-          <Route path = '/' element={<h1 className="generate-chart-banner">Click on a coin to generate its chart</h1>} />
+          <Route
+            path="/"
+            element={
+              <h1 className="generate-chart-banner">
+                Click on a coin to generate its chart
+              </h1>
+            }
+          />
           <Route path=":coinID" element={<PriceChart />} />
         </Routes>
       </div>
-      
     </div>
   );
 }
