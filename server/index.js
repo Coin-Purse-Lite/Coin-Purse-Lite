@@ -8,11 +8,8 @@ const userController = require('./controllers/userController');
 const apiController = require('./controllers/apiController');
 
 const port = process.env.PORT || 3001; // set port - default 3000 - used for Heroku app hosting
-const mongoURI = process.env.NODE_ENV = 'mongodb+srv://coinpurse:lite@coin-purse-lite.v74xndq.mongodb.net/?retryWrites=true&w=majority';
+const mongoURI = process.env.NODE_ENV = ''; // SET MONGODB URI HERE
 
-//connecting to our mongoose database
-  //username is: coinpurse
-  //password is: lite
 mongoose.connect(mongoURI,{
     useNewUrlParser: true,
     useUnifiedTopology: true

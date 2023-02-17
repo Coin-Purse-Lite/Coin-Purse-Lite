@@ -1,4 +1,4 @@
-# Coin-Purse-Lite
+# CoinPurse Lite
 
 ## Cryptocurrency dashboard powered by MongoDB, Express, React, and Node.
 
@@ -8,3 +8,8 @@ Connect your own MongoDB database to the MongoURI in /server/index.js
 1. Clone repo
 2. Run `npm install`
 3. Run `npm start` 
+
+
+### Dashboard
+
+![](media/dashboard.png)
