@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "../styles/CoinRow.css";
 
+
+/* UNUSED COINROW JSX */
+
 export default function CoinRow(props) {
   const { dashList, el } = props;
 

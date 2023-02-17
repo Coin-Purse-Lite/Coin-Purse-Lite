@@ -9,6 +9,9 @@ export default function Signup(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+
+  // Cookie and SSID functionality to be added
+
   function handleSignup() {
     fetch("http://localhost:3001/signup", {
       method: "POST",
@@ -52,7 +55,8 @@ export default function Signup(props) {
 
   return (
     <div className="Signup">
-      <h1>Signup</h1>
+      <h1 style={{position:'absolute',top:'250px', color:'#0900b0'}}>Coin Purse Lite</h1>
+      <h2>Signup</h2>
       <div className="username">
         <label htmlFor="username">Username</label>
         <br />

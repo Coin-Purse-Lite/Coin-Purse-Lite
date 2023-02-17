@@ -66,7 +66,8 @@ export default function Login(props) {
 
   return (
     <div className="Login">
-      <h1>Login</h1>
+      <h1 style={{position:'absolute',top:'250px', color:'#0900b0'}}>Coin Purse Lite</h1>
+      <h2>Login</h2>
       <div className="username">
         <label htmlFor="username">Username</label>
         <br />

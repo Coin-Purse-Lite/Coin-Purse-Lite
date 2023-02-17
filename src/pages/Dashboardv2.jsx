@@ -5,6 +5,8 @@ import Searchbar from "../components/Searchbar";
 import SearchList from "../components/SearchList";
 import "../styles/Dashboard.css";
 
+/* UNUSED DASHBOARD JSX */
+
 export default function Dashboard(props) {
   const { user } = props;
   ////-------SEARCH FUNCTIONALITY ADDED TODAY---------//////

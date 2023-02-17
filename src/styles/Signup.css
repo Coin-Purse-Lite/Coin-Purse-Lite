@@ -8,6 +8,11 @@
 }
 
 
+h2 {
+  font-size: 24px;
+}
+
+
 .Signup {
   font-weight: bold;
   display: flex;

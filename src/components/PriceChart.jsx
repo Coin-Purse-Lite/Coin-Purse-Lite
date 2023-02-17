@@ -42,7 +42,7 @@ export default function PriceChart() {
 
   return (
     <div className="PriceChart bg-white">
-      <h1>{coinData.name}</h1>
+      <h1 style={{borderRadius:'0px'}}>{coinData.name}</h1>
       {chartData && <Chart chartData={chartData} />}
     </div>
   );

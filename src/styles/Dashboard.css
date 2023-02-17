@@ -2,6 +2,7 @@
   margin: 0;
   background-color: #f5f5f5;
   font-family: "DM Sans", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
 }
 
 h1 {
@@ -270,9 +271,18 @@ td {
   /* change background color of button on hover */
 }
 
+.generate-chart-banner {
+  margin-top: 150px;
+  background-color: white;
+}
+
 @media only screen and (max-width: 1300px) {
   .LOGINH1 {
     display: none;
+  }
+
+  .generate-chart-banner {
+    margin-top: 0px;
   }
 
   .Dashboard {
@@ -286,8 +296,8 @@ td {
   .price-chart,
   .watchlist,
   .news-module {
-    flex: 1 1 100%;
-    max-height: none;
+    /* flex: 1 1 100%; */
+    max-height: 365px;
   }
 
   .table-cell {
@@ -299,3 +309,5 @@ td {
     max-height: none;
   }
 }
+
+
